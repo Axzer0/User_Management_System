@@ -1,0 +1,32 @@
+@import "src/global/variables";
+
+footer{
+  color: #708090;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: right;
+  padding: 1.5rem;
+  align-items: center;
+  @include sm{
+    div:last-child{
+      display: none;
+    }
+    font-size: 12px;
+    justify-content: space-between;
+  }
+}
+
+.img-container{
+  img {
+    width: 25px;
+    margin-right: 10px;
+  }
+  display: flex;
+  align-items: center;
+}
+
+.language{
+  outline: none;
+  border: none;
+  color: #708090;
+}

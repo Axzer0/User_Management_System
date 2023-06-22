@@ -1,0 +1,12 @@
+@import "src/global/variables";
+
+header{
+  img {
+    width: 75px;
+  }
+  margin: 2rem;
+  @include sm{
+    display: flex;
+    justify-content: center;
+  }
+}
