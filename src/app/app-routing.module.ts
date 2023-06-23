@@ -9,14 +9,13 @@ const routes: Routes = [
   {
     path: '',
     component: AuthLayoutComponent,
-    loadChildren: () => import('./auth/auth-routing.module').then(m => m.AuthRoutingModule)
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
   {
     path: '',
     component: BaseLayoutComponent,
     children: BaseLayoutRoutes
   }
-
 ];
 
 @NgModule({

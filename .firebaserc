@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "user-management-system-54c7d": {
+      "hosting": {
+        "User_Management_System": [
+          "user-management-system-54c7d"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "user-management-system-54c7d"
+  }
+}
