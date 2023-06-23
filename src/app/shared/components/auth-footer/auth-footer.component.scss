@@ -1,11 +1,10 @@
 @import "src/global/variables";
 
 footer{
-  color: #708090;
+  color: $subheading-color;
   font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: right;
-  padding: 1.5rem;
   align-items: center;
   @include sm{
     div:last-child{
@@ -28,5 +27,5 @@ footer{
 .language{
   outline: none;
   border: none;
-  color: #708090;
+  color: $subheading-color;
 }

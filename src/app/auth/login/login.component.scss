@@ -1,0 +1,46 @@
+@import "src/global/variables";
+
+section{
+  margin: auto;
+  width: 40%;
+}
+
+mat-form-field{
+  width: 100%;
+}
+.forgot-password{
+  color: $link-color;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 5px;
+  &:hover{
+    color: darken($link-color, 15%);
+  }
+}
+
+.login-btn{
+  border-radius: 50px;
+  margin-top: 1rem;
+  width: 100%;
+  font-weight: 400;
+  font-family: $mont;
+}
+
+.register{
+  text-align: center;
+  margin-top: 15px;
+  font-size: 12px;
+  cursor: default;
+  span{
+    color: $link-color;
+    cursor: pointer;
+    &:hover{
+      color: darken($link-color, 15%);
+    }
+  }
+}
+
+
+
+

@@ -7,6 +7,16 @@ $screen-lg-min: 992px;
 
 $screen-xl-min: 1200px;
 
+$subheading-color: #708090;
+
+$link-color: #1261A0;
+
+$btn-color: #072F5F;
+
+$base-font: 'Poppins', sans-serif;
+
+$mont: 'Montserrat', sans-serif;
+
 @mixin sm {
   @media only screen and (max-width: #{$screen-sm-min}){
     @content;

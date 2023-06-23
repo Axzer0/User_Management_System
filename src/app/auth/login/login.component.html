@@ -1,6 +1,31 @@
-<section>
-  <mat-card>
-
+<section class="pt-4">
+  <mat-card class="p-4">
+    <mat-card-header class="mb-3">
+      <mat-card-title>Sign in</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form action="" autocomplete="off" id="login-form">
+       <p>
+         <mat-form-field appearance="outline">
+           <mat-label>Email</mat-label>
+           <input required matInput placeholder="Email" type="email" id="email">
+         </mat-form-field>
+       </p>
+       <p>
+         <mat-form-field appearance="outline">
+           <mat-label>Password</mat-label>
+           <input matInput placeholder="Email" type="password" autocomplete="new-password">
+         </mat-form-field>
+         <span class="forgot-password">Forgot Password ?</span>
+       </p>
+      </form>
+      <mat-divider></mat-divider>
+      <button (click)="signIN()" mat-flat-button class="login-btn" color="primary">Sign in</button>
+    </mat-card-content>
+    <mat-card-footer *ngIf="logInStatus" class="mt-2">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-footer>
   </mat-card>
+  <p class="register">Don't have an account ? <span routerLink="/register"> Register now</span></p>
 </section>
 

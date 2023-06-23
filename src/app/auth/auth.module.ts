@@ -5,6 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {MatCardModule} from "@angular/material/card";
 import {SharedModule} from "../shared/shared.module";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatDividerModule} from "@angular/material/divider";
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import {SharedModule} from "../shared/shared.module";
   imports: [
     CommonModule,
     AuthRoutingModule,
-    SharedModule
+    SharedModule,
+    MatProgressBarModule,
+    MatDividerModule
   ]
 })
 export class AuthModule { }

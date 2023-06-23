@@ -7,6 +7,9 @@ import { AngularFireAuth } from "@angular/fire/compat/auth";
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+
+  logInStatus: boolean = false;
+
   constructor(private fireAuth: AngularFireAuth) {
   }
 
@@ -28,5 +31,9 @@ export class LoginComponent {
 
   test(){
     this.login('admin@mail.com', 'Password+123')
+  }
+
+  signIN(): void{
+    this.logInStatus = !this.logInStatus
   }
 }
