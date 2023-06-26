@@ -5,7 +5,7 @@ import {BaseLayoutComponent} from "./layouts/base-layout/base-layout.component";
 import {BaseLayoutRoutes} from "./shared/routes/base-layout-routes";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  { path: '', pathMatch: 'full', redirectTo: '/register' },
   {
     path: '',
     component: AuthLayoutComponent,

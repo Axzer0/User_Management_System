@@ -6,6 +6,7 @@ import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import {SharedModule} from "../shared/shared.module";
 import {MatCardModule} from "@angular/material/card";
+import {GenericFormModule} from "../generic-form/generic-form.module";
 
 
 @NgModule({
@@ -16,7 +17,9 @@ import {MatCardModule} from "@angular/material/card";
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    MatCardModule
+    MatCardModule,
+    GenericFormModule,
+    SharedModule
   ]
 })
 export class DashboardModule { }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {StaffDetailsForm} from "../../../assets/Forms/StaffDetailsForm";
+import {FormInterface} from "../../generic-form/form-interface";
 
 @Component({
   selector: 'app-user',
@@ -6,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent {
-
+  form: FormInterface = StaffDetailsForm
 }

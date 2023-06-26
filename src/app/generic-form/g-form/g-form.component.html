@@ -1,0 +1,47 @@
+<form [formGroup]="form" class="col-12 row">
+  <ng-container *ngFor="let control of formData?.controls">
+    <ng-container *ngIf="checkDependency(control)">
+      <ng-container [ngSwitch]="control.type">
+        <p *ngSwitchCase="'text'" class="col-6">
+          <mat-form-field appearance="outline" >
+            <mat-label>{{control.label}}</mat-label>
+            <input [attr.maxLength]="control?.validation?.max || null"
+                   [attr.minLength]="control?.validation?.min || null"
+                   [formControlName]="control.controlName"
+                   matInput
+                   [placeholder]="control?.placeholder || ''"
+                   [type]="control.type">
+            <mat-error *ngIf="!!checkControlError(control.controlName)">
+              <ng-container>
+                {{checkControlError(control.controlName, control?.validation)}}
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p *ngSwitchCase="'dropdown'" class="col-6">
+          <mat-form-field appearance="outline">
+            <mat-label>{{control.label}}</mat-label>
+            <mat-select [formControlName]="control.controlName">
+              <mat-option *ngFor="let o of control.options" [value]="o">
+                {{o}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p *ngSwitchCase="'date'" class="col-6">
+          <mat-form-field appearance="outline">
+            <mat-label>{{control.label}}</mat-label>
+            <input [formControlName]="control.controlName" matInput [matDatepickerFilter]="control?.filter ? control.filter : noFilter" [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker  disabled="false"></mat-datepicker>
+            <mat-error *ngIf="!!checkControlError(control.controlName)">
+              <ng-container>
+                {{checkControlError(control.controlName, control?.validation)}}
+              </ng-container>
+            </mat-error>
+          </mat-form-field>
+        </p>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</form>
