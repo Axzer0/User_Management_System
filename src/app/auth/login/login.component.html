@@ -20,7 +20,7 @@
        </p>
       </form>
       <mat-divider></mat-divider>
-      <button (click)="signIN()" mat-flat-button class="login-btn" color="primary">Sign in</button>
+      <button routerLink="/dashboard" mat-flat-button class="login-btn" color="primary">Sign in</button>
     </mat-card-content>
     <mat-card-footer *ngIf="logInStatus" class="mt-2">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
