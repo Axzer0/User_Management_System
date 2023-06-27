@@ -1,8 +1,8 @@
-<form [formGroup]="form" class="col-12 row">
+<form [formGroup]="form" (ngSubmit)="onNext()" class="col-12 row">
   <ng-container *ngFor="let control of formData?.controls">
     <ng-container *ngIf="checkDependency(control)">
       <ng-container [ngSwitch]="control.type">
-        <p *ngSwitchCase="'text'" class="col-6">
+        <p *ngSwitchCase="'text'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline" >
             <mat-label>{{control.label}}</mat-label>
             <input [attr.maxLength]="control?.validation?.max || null"
@@ -11,14 +11,14 @@
                    matInput
                    [placeholder]="control?.placeholder || ''"
                    [type]="control.type">
-            <mat-error *ngIf="!!checkControlError(control.controlName)">
+            <mat-error *ngIf="!!controlError(control.controlName)">
               <ng-container>
-                {{checkControlError(control.controlName, control?.validation)}}
+                {{controlError(control.controlName, control?.validation)}}
               </ng-container>
             </mat-error>
           </mat-form-field>
         </p>
-        <p *ngSwitchCase="'dropdown'" class="col-6">
+        <p *ngSwitchCase="'dropdown'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline">
             <mat-label>{{control.label}}</mat-label>
             <mat-select [formControlName]="control.controlName">
@@ -28,20 +28,28 @@
             </mat-select>
           </mat-form-field>
         </p>
-        <p *ngSwitchCase="'date'" class="col-6">
+        <p *ngSwitchCase="'date'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline">
             <mat-label>{{control.label}}</mat-label>
             <input [formControlName]="control.controlName" matInput [matDatepickerFilter]="control?.filter ? control.filter : noFilter" [matDatepicker]="picker">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker  disabled="false"></mat-datepicker>
-            <mat-error *ngIf="!!checkControlError(control.controlName)">
+            <mat-error *ngIf="!!controlError(control.controlName)">
               <ng-container>
-                {{checkControlError(control.controlName, control?.validation)}}
+                {{controlError(control.controlName, control?.validation)}}
               </ng-container>
             </mat-error>
           </mat-form-field>
         </p>
+        <p *ngSwitchCase="'file'" [class]="control.class || 'col-6'">
+          <input type="file" [formControlName]="control.controlName">
+        </p>
       </ng-container>
     </ng-container>
   </ng-container>
+  <mat-divider></mat-divider>
+  <div class="form-footer">
+    <span>{{form.errors?.['matchError'] ? formData?.validator.message : ''}}</span>
+    <button mat-flat-button color="primary">Next Page</button>
+  </div>
 </form>

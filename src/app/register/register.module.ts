@@ -9,6 +9,7 @@ import { ComplianceDetailsComponent } from './compliance-details/compliance-deta
 import {SharedModule} from "../shared/shared.module";
 import {GenericFormModule} from "../generic-form/generic-form.module";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatDividerModule} from "@angular/material/divider";
 
 
 @NgModule({
@@ -18,12 +19,13 @@ import {MatStepperModule} from "@angular/material/stepper";
     ContactDetailsComponent,
     ComplianceDetailsComponent
   ],
-  imports: [
-    CommonModule,
-    RegisterRoutingModule,
-    SharedModule,
-    GenericFormModule,
-    MatStepperModule
-  ]
+    imports: [
+        CommonModule,
+        RegisterRoutingModule,
+        SharedModule,
+        GenericFormModule,
+        MatStepperModule,
+        MatDividerModule
+    ]
 })
 export class RegisterModule { }

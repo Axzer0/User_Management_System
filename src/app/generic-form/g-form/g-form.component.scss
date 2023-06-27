@@ -1,3 +1,13 @@
 mat-form-field{
   width: 100%;
 }
+
+.form-footer{
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span{
+    color: red;
+  }
+}

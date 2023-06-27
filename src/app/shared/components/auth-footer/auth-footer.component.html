@@ -3,11 +3,11 @@
     <img src="assets/images/logo-no-background.png" alt="">  @ 2023
   </div>
   <div>
-    <select class="language">
-      <option value="">one</option>
-      <option value="">two</option>
-      <option value="">three</option>
+    <select class="language" [(ngModel)]="language" (ngModelChange)="onChange($event)" name="language">
+      <option value="en">English</option>
+      <option value="de">German</option>
+      <option value="fr">French</option>
     </select>
   </div>
-  <div >Support Link: support@email.com</div>
+  <div >{{'Support Link' | translate}}: support@email.com</div>
 </footer>

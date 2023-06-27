@@ -1,6 +1,17 @@
 import {AbstractControl} from "@angular/forms";
 import {Validation} from "../../generic-form/form-interface";
 
+export const checkControlError= (control: AbstractControl, error?: Validation): string =>{
+  if (control?.invalid && (control?.dirty || control?.touched)){
+    if (!error){
+      return 'Error type not detected '
+    }
+    return  catchValidationError(error ,control)
+  } else {
+    return ''
+  }
+}
+
 export const catchValidationError = (errorType: Validation, control: AbstractControl): string =>{
   if (errorType?.required && control.errors?.['required']){
     return requiredError(errorType?.required)

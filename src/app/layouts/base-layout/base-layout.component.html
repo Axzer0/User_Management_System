@@ -1,3 +1,7 @@
 <header style="width: 100%; background: #1261A0; height: 75px">
+  <button mat-flat-button (click)="logout()"> Logout </button>
 </header>
+
+<!--<p *ngFor="let u of user | async">{{u | json}}</p>-->
+
 <router-outlet></router-outlet>

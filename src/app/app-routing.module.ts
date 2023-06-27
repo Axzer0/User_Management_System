@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {AuthLayoutComponent} from "./layouts/auth-layout/auth-layout.component";
 import {BaseLayoutComponent} from "./layouts/base-layout/base-layout.component";
 import {BaseLayoutRoutes} from "./shared/routes/base-layout-routes";
+import {authGuard} from "./shared/guards/auth.guard";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/register' },
@@ -14,7 +15,8 @@ const routes: Routes = [
   {
     path: '',
     component: BaseLayoutComponent,
-    children: BaseLayoutRoutes
+    children: BaseLayoutRoutes,
+    canActivate: [authGuard]
   }
 ];
 

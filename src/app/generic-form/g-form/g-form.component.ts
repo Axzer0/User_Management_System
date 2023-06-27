@@ -1,8 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ControlInterface, FormInterface, Validation} from "../form-interface";
-import {FormBuilder, FormControl, FormControlOptions, FormGroup, Validators} from "@angular/forms";
-import {catchValidationError} from "../../shared/functions/form-validation-error";
-import {patternValidator} from "../../shared/functions/customValidators";
+import {AbstractControl, FormBuilder, FormControl, FormControlOptions, FormGroup, Validators} from "@angular/forms";
+import {catchValidationError, checkControlError} from "../../shared/functions/form-validation-error";
 
 @Component({
   selector: 'app-g-form',
@@ -19,11 +18,11 @@ export class GFormComponent implements OnInit, OnChanges{
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.form = this.fb.group(this.generateFormGroup())
+    this.form = this.generateFormGroup() as FormGroup
   }
 
   ngOnInit() {
-    console.log(this.form)
+    this.formData?.controls.sort((a, b) => a.order - b.order)
   }
 
   generateFormGroup(): Object{
@@ -36,12 +35,17 @@ export class GFormComponent implements OnInit, OnChanges{
   convertJSONtoForm(_json: FormInterface){
     //loop through the json and create a fb object
     let fb: any = {}
+    let validator: any = _json?.validator
     _json?.controls.forEach((control: ControlInterface) => {
       if (!control.hasOwnProperty('dependentTo')){
         fb = {...fb,...this.createControl(control)}
       }
     })
-   return fb
+    if (!validator){
+      return this.fb.group(fb)
+    }
+
+   return this.fb.group(fb, {validators: validator.validate})
   }
 
   createControl(_control: ControlInterface){
@@ -81,19 +85,17 @@ export class GFormComponent implements OnInit, OnChanges{
     return validators
   }
 
-  checkControlError(name: string, error?: Validation): string{
-    let control = this.form.get(name)
-    if (control?.invalid && (control?.dirty || control?.touched)){
-      if (!error){
-        return 'Error type not detected '
-      }
-      return  catchValidationError(error ,control)
-    } else {
-      return ''
-    }
+  controlError(name: string, error?: Validation): string{
+    let control = this.form.get(name) as AbstractControl
+    return checkControlError(control, error)
   }
 
   noFilter(){
     return true
+  }
+
+  onNext(){
+    console.log(this.form)
+    console.log(this.form.valid)
   }
 }

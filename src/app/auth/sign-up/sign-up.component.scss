@@ -42,5 +42,28 @@ mat-form-field{
 }
 
 
+.rule-set{
+  text-align: center;
+  font-weight: 500;
+  p{
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 1rem;
+    align-items: center;
+    border-bottom: 1px solid silver;
+    padding-bottom: 0.5rem;
+  }
+  p:first-child{
+    border-top: 1px solid silver;
+    padding-top: 0.5rem;
+  }
+  p:last-child{
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+
 
 

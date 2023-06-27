@@ -19,16 +19,14 @@ const hasCapitalCase: patternMap = {
   }
 }
 const hasSpecialCharacter: patternMap = {
-  regex: /[A-Z]/,
+  regex: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/? ]/,
   error: {
     hasSpecialCharacter: true
   }
 }
 
-export const passwordPatternValidator = ['',
-  [Validators.required,
+export const passwordPatternValidator =   [Validators.required,
     patternValidator(hasNumber),
     patternValidator(hasCapitalCase),
     patternValidator(hasSpecialCharacter),
     Validators.minLength(8)]
-]

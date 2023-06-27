@@ -9,6 +9,14 @@ import { BaseLayoutComponent } from './layouts/base-layout/base-layout.component
 import {SharedModule} from "./shared/shared.module";
 import {AngularFireModule} from "@angular/fire/compat";
 import {environment} from "../environments/environment";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+
+export function httpTranslateLoader(http: HttpClient){
+  return new TranslateHttpLoader(http)
+}
 
 @NgModule({
   declarations: [
@@ -21,9 +29,20 @@ import {environment} from "../environments/environment";
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader:{
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

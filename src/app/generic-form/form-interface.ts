@@ -7,6 +7,7 @@ export interface ControlInterface{
   name: string,
   label: string,
   placeholder?: string,
+  class?: string
   options?: Array<string>,
   dependentTo?: {
     value: string,

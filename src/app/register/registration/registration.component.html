@@ -1,19 +1,16 @@
 <section class="p-5">
-  <mat-stepper [linear]="true" #stepper>
-    <mat-step label="Basic Details">
-      <mat-card>
-        <app-staff-details></app-staff-details>
-      </mat-card>
-    </mat-step>
-    <mat-step label="Contact Details">
-      <mat-card>
-        <app-contact-details></app-contact-details>
-      </mat-card>
-    </mat-step>
-    <mat-step label="Compliance Documentation">
-      <mat-card>
-        <app-compliance-details></app-compliance-details>
-      </mat-card>
-    </mat-step>
-  </mat-stepper>
+  <div>Complete your registration: Completed(0/3)</div>
+  <mat-card [ngSwitch]="currentPage">
+    <mat-card-title>Basic Details</mat-card-title>
+    <mat-divider></mat-divider>
+    <ng-container *ngSwitchCase="'basic'">
+      <app-staff-details></app-staff-details>
+    </ng-container>
+    <ng-container *ngSwitchCase="'contact'">
+      <app-contact-details></app-contact-details>
+    </ng-container>
+    <ng-container *ngSwitchCase="'compliance'">
+      <app-compliance-details></app-compliance-details>
+    </ng-container>
+  </mat-card>
 </section>

@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {validMatch} from "../../shared/functions/customValidators";
 import {passwordPatternValidator} from "../passwordPatternValidation";
+import {AuthService, UserCredential} from "../services/auth.service";
+import {AlertService} from "../../shared/service/alert.service";
+import {Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-sign-up',
@@ -10,36 +14,83 @@ import {passwordPatternValidator} from "../passwordPatternValidation";
 })
 export class SignUpComponent {
 
-  validationObj: any = {
-    email: {
-
-    }
-  }
+  showPassword: boolean = false
+  showCPassword: boolean = false
 
   registerStatus: boolean = false;
   registerForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: passwordPatternValidator,
+    password: ['', passwordPatternValidator],
     confirmPassword: ['', Validators.required],
-  }, {validators: validMatch('password', 'confirmPassword')})
+  }, {validators: [validMatch('password', 'confirmPassword')]})
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder,
+              private authService: AuthService,
+              private router: Router,
+              private alert: AlertService) {}
 
   onSubmit(): void {
-    console.log(this.registerForm.value)
-    console.log(this.registerForm.valid)
+    if (!this.registerForm.valid){
+      Object.keys(this.registerForm.controls).forEach(key => {
+        this.registerForm.controls[key].markAsTouched()
+        this.registerForm.controls[key].markAsDirty()
+      })
+      this.alert.sendAlert('Cannot submit Invalid form !')
+      return
+    }
+    this.registerStatus = true
+    let user: UserCredential = {
+      email: this.email.value,
+      password: this.password.value
+    }
+    this.authService.registerUser(user).then((res) => {
+      this.registerStatus = false
+      this.alert.sendAlert('Sign-in successful. You can now login.')
+      this.router.navigate(['/login']).then()
+    } , err => {
+      this.registerStatus = false
+      this.alert.sendAlert('Something went wrong !')
+    })
   }
 
-  control(controlName: string): AbstractControl | null{
-    return this.registerForm.get(controlName)
+
+  get password(): AbstractControl{
+    return this.registerForm.get('password') as AbstractControl
+  }
+  get email(): AbstractControl{
+    return this.registerForm.get('email') as AbstractControl
+  }
+
+  get cPassword(): AbstractControl{
+    return this.registerForm.get('confirmPassword') as AbstractControl
   }
 
   catchValidationError = (errorType: string, control: AbstractControl): boolean =>{
     return control.hasError(errorType)
   }
 
-  setError = (): string | null =>{
-    return null;
+  hasCapitalError(): boolean{
+    return this.password?.errors?.['required'] || this.catchValidationError('hasCapitalCase', this.password)
+  }
+
+  hasNumberError(): boolean{
+    return this.password?.errors?.['required'] || this.catchValidationError('hasNumber', this.password)
+  }
+
+  hasSpecialCharError(): boolean{
+    return this.password?.errors?.['required'] || this.catchValidationError('hasSpecialCharacter', this.password)
+  }
+
+  hasMatchError(): boolean{
+    return this.password?.errors?.['required'] || this.registerForm.errors?.['matchError']
+  }
+
+  toggle(v: string): void{
+    if (v == 'p'){
+      this.showPassword = !this.showPassword
+    }
+    if (v == 'cp'){
+      this.showCPassword = !this.showCPassword
+    }
   }
 }
