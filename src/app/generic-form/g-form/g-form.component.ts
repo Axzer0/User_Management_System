@@ -13,11 +13,12 @@ import {AbstractControl, FormBuilder, FormControl, FormControlOptions, FormGroup
 import { checkControlError} from "../../shared/functions/form-validation-error";
 import {AlertService} from "../../shared/service/alert.service";
 
+
 @Component({
   selector: 'app-g-form',
   templateUrl: './g-form.component.html',
   styleUrls: ['./g-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GFormComponent implements OnInit, OnChanges{
   @Input() formData: FormInterface | null = null
@@ -63,7 +64,7 @@ export class GFormComponent implements OnInit, OnChanges{
 
   createControl(_control: ControlInterface){
     //convert and return a single control
-    return {[_control.controlName]: [null, this.generateValidator(_control.validation || {})]}
+    return {[_control.controlName]: [  null, this.generateValidator(_control.validation || {})]}
   }
 
   checkDependency(control: any){

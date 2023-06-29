@@ -3,17 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { StaffRoutingModule } from './staff-routing.module';
 import { ViewComponent } from './view/view/view.component';
-import { BasicDetailsComponent } from './view/basic-details/basic-details.component';
+import { BasicDetailsViewComponent } from './view/basic-details-view/basic-details-view.component';
 import {SharedModule} from "../shared/shared.module";
+import { ContactDetailsViewComponent } from './view/contact-details-view/contact-details-view.component';
 
 
 @NgModule({
     declarations: [
         ViewComponent,
-        BasicDetailsComponent
+        BasicDetailsViewComponent,
+        ContactDetailsViewComponent
     ],
     exports: [
-        BasicDetailsComponent
+        BasicDetailsViewComponent,
+      ContactDetailsViewComponent
     ],
     imports: [
         CommonModule,

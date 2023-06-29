@@ -60,6 +60,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Address 1',
       order: 4,
       class: 'col-12',
+      filter: 'alphaNumeric',
       validation: {
         required: 'Address 1',
         max: 50
@@ -72,6 +73,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Address 2',
       order: 5,
       class: 'col-12',
+      filter: 'alphaNumeric',
       validation: {
         max: 50
       }
@@ -83,6 +85,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Postal / Zip code',
       order: 6,
       class: 'col-4',
+      filter: 'alphaNumeric',
       validation: {
         required: 'Postal / Zip Code',
         max: 10
@@ -95,6 +98,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Mobile Number',
       order: 7,
       class: 'col-4',
+      filter: 'onlyNumber',
       validation: {
         required: 'Mobile Number',
         max: 15

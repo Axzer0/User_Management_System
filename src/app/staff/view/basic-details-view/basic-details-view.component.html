@@ -1,0 +1,46 @@
+<section>
+  <div class="row col-12">
+    <p [class]="'col-4'">
+      <mat-form-field appearance="outline" >
+        <mat-label>First Name</mat-label>
+        <input matInput disabled [ngModel]= "data?.firstName">
+      </mat-form-field>
+    </p>
+    <p [class]="'col-4'">
+      <mat-form-field appearance="outline" >
+        <mat-label>Middle Name</mat-label>
+        <input matInput disabled [ngModel]= "data?.middleName">
+      </mat-form-field>
+    </p>
+    <p [class]="'col-4'">
+      <mat-form-field appearance="outline" >
+        <mat-label>Last Name</mat-label>
+        <input matInput disabled [ngModel]= "data?.lastName">
+      </mat-form-field>
+    </p>
+    <p [class]="'col-6'">
+      <mat-form-field appearance="outline" >
+        <mat-label>Date of birth</mat-label>
+        <input matInput disabled [ngModel]= "data?.dob |  date:'dd/MM/yyyy'">
+      </mat-form-field>
+    </p>
+    <p [class]="'col-6'">
+      <mat-form-field appearance="outline" >
+        <mat-label>Country of birth</mat-label>
+        <input matInput disabled [ngModel]= "data?.cob">
+      </mat-form-field>
+    </p>
+    <p [class]="'col-6'">
+      <mat-form-field appearance="outline" >
+        <mat-label>Email</mat-label>
+        <input matInput disabled [ngModel]= "data?.email">
+      </mat-form-field>
+    </p>
+    <p [class]="'col-6'">
+      <mat-form-field appearance="outline" >
+        <mat-label>Gender</mat-label>
+        <input matInput disabled [ngModel]= "data?.gender">
+      </mat-form-field>
+    </p>
+  </div>
+</section>

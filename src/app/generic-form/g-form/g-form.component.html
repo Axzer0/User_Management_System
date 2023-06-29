@@ -33,7 +33,7 @@
         <p *ngSwitchCase="'date'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline">
             <mat-label>{{control.label}}</mat-label>
-            <input [formControlName]="control.controlName" matInput [matDatepickerFilter]="control?.filter ? control.filter : noFilter" [matDatepicker]="picker" [disabled]=true>
+            <input [formControlName]="control.controlName" matInput [matDatepickerFilter]="control?.filter ? control.filter : noFilter" [matDatepicker]="picker">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker  disabled="false"></mat-datepicker>
             <mat-error *ngIf="!!controlError(control.controlName)">

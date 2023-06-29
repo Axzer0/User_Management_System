@@ -43,6 +43,9 @@ export class RegistrationComponent implements OnInit{
           this.cdr.detectChanges()
           return
         }
+      } else {
+        this.current = 1
+        this.cdr.detectChanges()
       }
     }, err => {
     })
