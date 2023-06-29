@@ -10,6 +10,8 @@ import {SharedModule} from "../shared/shared.module";
 import {GenericFormModule} from "../generic-form/generic-form.module";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatDividerModule} from "@angular/material/divider";
+import {ViewDialogComponent} from "./view-dialog/view-dialog.component";
+import {StaffModule} from "../staff/staff.module";
 
 
 @NgModule({
@@ -17,15 +19,17 @@ import {MatDividerModule} from "@angular/material/divider";
     RegistrationComponent,
     StaffDetailsComponent,
     ContactDetailsComponent,
-    ComplianceDetailsComponent
+    ComplianceDetailsComponent,
+    ViewDialogComponent
   ],
-    imports: [
-        CommonModule,
-        RegisterRoutingModule,
-        SharedModule,
-        GenericFormModule,
-        MatStepperModule,
-        MatDividerModule
-    ]
+  imports: [
+    CommonModule,
+    RegisterRoutingModule,
+    SharedModule,
+    GenericFormModule,
+    MatStepperModule,
+    MatDividerModule,
+    StaffModule
+  ]
 })
 export class RegisterModule { }

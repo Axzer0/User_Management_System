@@ -1,16 +1,32 @@
 <section class="p-5">
-  <div>Complete your registration: Completed(0/3)</div>
-  <mat-card [ngSwitch]="currentPage">
-    <mat-card-title>Basic Details</mat-card-title>
+  <div class="title-container">
+    <span>Complete your registration:</span>
+    <span>Completed(0/3)</span>
+  </div>
+  <mat-card [ngSwitch]="current">
+    <mat-card-title>{{title[current]}}</mat-card-title>
     <mat-divider></mat-divider>
-    <ng-container *ngSwitchCase="'basic'">
-      <app-staff-details></app-staff-details>
+    <ng-container *ngSwitchCase="'0'" >
+      <ng-template *ngTemplateOutlet="verifyingFormStatus">
+      </ng-template>
     </ng-container>
-    <ng-container *ngSwitchCase="'contact'">
+    <ng-container *ngSwitchCase="'1'">
+      <app-staff-details (next)="nextForm($event)"></app-staff-details>
+    </ng-container>
+    <ng-container *ngSwitchCase="'2'">
       <app-contact-details></app-contact-details>
     </ng-container>
-    <ng-container *ngSwitchCase="'compliance'">
+    <ng-container *ngSwitchCase="'3'">
       <app-compliance-details></app-compliance-details>
     </ng-container>
+
   </mat-card>
 </section>
+
+<ng-template #verifyingFormStatus>
+  <div class="pending-container">
+    Verifying your form status
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <mat-divider></mat-divider>
+</ng-template>

@@ -1,7 +1,17 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {ControlInterface, FormInterface, Validation} from "../form-interface";
 import {AbstractControl, FormBuilder, FormControl, FormControlOptions, FormGroup, Validators} from "@angular/forms";
-import {catchValidationError, checkControlError} from "../../shared/functions/form-validation-error";
+import { checkControlError} from "../../shared/functions/form-validation-error";
+import {AlertService} from "../../shared/service/alert.service";
 
 @Component({
   selector: 'app-g-form',
@@ -11,10 +21,13 @@ import {catchValidationError, checkControlError} from "../../shared/functions/fo
 })
 export class GFormComponent implements OnInit, OnChanges{
   @Input() formData: FormInterface | null = null
+  @Input() btnName: string  = 'Submit'
+  @Input() formValue: any = null
+  @Output() submit = new EventEmitter<any>()
 
   form: FormGroup = this.fb.group(this.generateFormGroup())
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private alert: AlertService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -95,7 +108,18 @@ export class GFormComponent implements OnInit, OnChanges{
   }
 
   onNext(){
-    console.log(this.form)
-    console.log(this.form.valid)
+    if (!this.form.valid){
+      Object.keys(this.form.controls).forEach(key => {
+        this.form.controls[key].markAsDirty()
+        this.form.controls[key].markAsTouched()
+      })
+      this.alert.sendAlert('Cannot submit invalid form !')
+      return
+    }
+    this.submit.emit(this.form.value)
+  }
+
+  patchValue(){
+    //for edit
   }
 }

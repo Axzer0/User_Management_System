@@ -1,21 +1,28 @@
-import {Component, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {ChangeLangService} from "./shared/service/change-lang/change-lang.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AlertService} from "./shared/service/alert.service";
 import {FirestoreService} from "./shared/service/firestore.service";
+import {Observable} from "rxjs";
+import {LoadingService} from "./shared/service/loading.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnDestroy{
   title = 'User_Management_System';
   useLang: string = 'en'
+  loading$: Observable<boolean>
 
 
-  constructor(private translate: TranslateService,private _snackBar: MatSnackBar,private userDBService: FirestoreService) {
+  constructor(private translate: TranslateService,
+              private _snackBar: MatSnackBar,
+              private loading: LoadingService,
+              private userDBService: FirestoreService) {
     translate.setDefaultLang('en');
     ChangeLangService.lang.subscribe((val: string) => {
       translate.use(val)
@@ -23,8 +30,8 @@ export class AppComponent implements OnDestroy{
     AlertService.alert.subscribe((msg: string) => {
       this.alert(msg)
     })
-
     this.setUser()
+    this.loading$ = this.loading.loading$
   }
 
   setUser(): void{

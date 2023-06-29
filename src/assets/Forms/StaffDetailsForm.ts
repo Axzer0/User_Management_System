@@ -86,7 +86,7 @@ export const StaffDetailsForm: FormInterface = {
         required: 'Email',
         max: 100,
         email: true
-      }
+      },
     },
     {
       type: 'text',

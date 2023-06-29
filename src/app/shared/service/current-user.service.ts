@@ -19,4 +19,9 @@ export class CurrentUserService {
   get currentUser(): BehaviorSubject<UserModal | null>{
     return this.currentUser$
   }
+
+  get uid(): string{
+    let {uid} = JSON.parse(localStorage.getItem('user') || "{}")
+    return uid
+  }
 }

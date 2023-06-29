@@ -5,3 +5,23 @@ mat-card{
 mat-divider{
   margin: 1rem 0;
 }
+
+.pending-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 200px;
+  mat-progress-bar{
+    width: 30%;
+    margin-top: 1rem;
+  }
+}
+
+.title-container{
+
+  margin-bottom: 15px;
+}
+
+

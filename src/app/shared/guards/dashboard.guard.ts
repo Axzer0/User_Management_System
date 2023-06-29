@@ -14,7 +14,6 @@ export class dashboardGuard implements CanActivate {
                     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return new Observable<boolean>(obs => {
       this.currentUser.currentUser$.subscribe(_user => {
-        console.log(_user)
         if (!_user?.isVerified){
           this.router.navigate(['/register']).then()
           obs.next(false)

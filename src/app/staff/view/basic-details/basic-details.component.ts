@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {BasicDetailsInterface} from "../../interface/staff-form-interface";
 
 @Component({
   selector: 'app-basic-details',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./basic-details.component.scss']
 })
 export class BasicDetailsComponent {
+  @Input() data: BasicDetailsInterface | null = null
 
+  constructor() {
+  }
 }

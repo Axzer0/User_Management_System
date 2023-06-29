@@ -1,5 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="onNext()" class="col-12 row">
-  <ng-container *ngFor="let control of formData?.controls">
+<form [formGroup]="form" class="col-12 row">
+  <ng-container *ngFor="let control of formData?.controls ">
     <ng-container *ngIf="checkDependency(control)">
       <ng-container [ngSwitch]="control.type">
         <p *ngSwitchCase="'text'" [class]="control.class || 'col-6'">
@@ -9,6 +9,8 @@
                    [attr.minLength]="control?.validation?.min || null"
                    [formControlName]="control.controlName"
                    matInput
+                   inputFilterDirective
+                   [filter]="control?.filter || 'none'"
                    [placeholder]="control?.placeholder || ''"
                    [type]="control.type">
             <mat-error *ngIf="!!controlError(control.controlName)">
@@ -31,7 +33,7 @@
         <p *ngSwitchCase="'date'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline">
             <mat-label>{{control.label}}</mat-label>
-            <input [formControlName]="control.controlName" matInput [matDatepickerFilter]="control?.filter ? control.filter : noFilter" [matDatepicker]="picker">
+            <input [formControlName]="control.controlName" matInput [matDatepickerFilter]="control?.filter ? control.filter : noFilter" [matDatepicker]="picker" [disabled]=true>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker  disabled="false"></mat-datepicker>
             <mat-error *ngIf="!!controlError(control.controlName)">
@@ -50,6 +52,6 @@
   <mat-divider></mat-divider>
   <div class="form-footer">
     <span>{{form.errors?.['matchError'] ? formData?.validator.message : ''}}</span>
-    <button mat-flat-button color="primary">Next Page</button>
+    <button type="button" (click)="onNext()" mat-flat-button color="primary">{{btnName}}</button>
   </div>
 </form>

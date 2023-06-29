@@ -14,6 +14,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatIconModule} from "@angular/material/icon";
+import {MatDialogModule} from '@angular/material/dialog';
+import {InputFilterDirective} from "./directive/inputFilter.directive";
 
 const MATERIAL = [
   MatSelectModule,
@@ -24,13 +26,15 @@ const MATERIAL = [
   MatSnackBarModule,
   MatDividerModule,
   MatProgressBarModule,
-  MatIconModule
+  MatIconModule,
+  MatDialogModule
 ]
 
 @NgModule({
   declarations: [
     AuthHeaderComponent,
-    AuthFooterComponent
+    AuthFooterComponent,
+    InputFilterDirective,
   ],
   imports: [
     CommonModule,
@@ -45,7 +49,8 @@ const MATERIAL = [
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
-    MATERIAL
+    MATERIAL,
+    InputFilterDirective
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,15 @@
 <ng-container *ngIf="data.view === 'basic'">
-  <app-basic-details></app-basic-details>
+  <div class="container">
+    <h3>Basic Details</h3>
+    <mat-divider style="padding: 1.5rem 0;"></mat-divider>
+    <app-basic-details [data]="data.formDetails"></app-basic-details>
+  </div>
 </ng-container>
+<mat-divider></mat-divider>
+<div class="footer">
+  <span><i>*Once submitted you cannot update until all forms are completed</i></span>
+  <div>
+    <button mat-flat-button (click)="keepEditing()"> Keep Editing </button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="true"> Proceed </button>
+  </div>
+</div>

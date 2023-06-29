@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService, UserCredential} from "../services/auth.service";
 import {Router} from "@angular/router";
@@ -8,9 +8,9 @@ import {FirestoreService} from "../../shared/service/firestore.service";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
   logInStatus: boolean = false;
   form: FormGroup = this.fb.group(
@@ -23,8 +23,12 @@ export class LoginComponent {
   constructor(private authService: AuthService,
               private userDBService: FirestoreService,
               private alert: AlertService,
+              private ref: ChangeDetectorRef,
               private router: Router,
               private fb: FormBuilder) {}
+
+  ngOnInit(){
+  }
 
   login(): void{
     if (!this.form.valid){
@@ -38,6 +42,7 @@ export class LoginComponent {
     this.logInStatus = true
     this.authService.login(this.form.value as UserCredential).then(async (da) => {
       this.logInStatus = false
+      this.ref.detectChanges()
       if (da) {
         let {uid, email} = JSON.parse(da)
         await this.userDBService.fetchCurrentUser(uid)
@@ -45,15 +50,16 @@ export class LoginComponent {
       } else {
         this.router.navigate(['/dashboard']).then()
       }
-      console.log(da)
+      // console.log(da)
     }, err =>{
-      this.loginError(err as string)
+      this.loginError()
     })
   }
 
-  loginError(err: string): void{
-    console.log(err)
+  loginError(): void{
+    // console.log(err)
     this.logInStatus = false
+    this.ref.detectChanges()
     this.alert.sendAlert('Failed to login !')
   }
 
