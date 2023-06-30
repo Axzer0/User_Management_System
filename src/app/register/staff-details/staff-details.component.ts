@@ -29,9 +29,9 @@ export class StaffDetailsComponent {
   submitBasicDetails(){
     this.loading.setLoading(true)
     this.staffDBService.submitBasicDetails(this.formData as BasicDetailsInterface).then((res) =>{
-      this.alert.sendAlert('Details Added')
+      this.alert.sendAlert('Basic details Added')
       this.loading.setLoading(false)
-      this.next.emit(1)
+      this.next.emit(2)
     }, err => {
       this.alert.sendAlert('Something went wrong !')
       this.loading.setLoading(false)

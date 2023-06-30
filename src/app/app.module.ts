@@ -14,6 +14,7 @@ import {TranslateLoader, TranslateModule, TranslateService} from "@ngx-translate
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 
 export function httpTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http)
@@ -40,6 +41,7 @@ export function httpTranslateLoader(http: HttpClient){
     }),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     MatProgressSpinnerModule
   ],
   providers: [],

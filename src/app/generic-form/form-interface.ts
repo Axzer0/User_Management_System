@@ -8,7 +8,7 @@ export interface ControlInterface{
   label: string,
   placeholder?: string,
   class?: string
-  options?: Array<string>,
+  options?: Array<{value: string, label: string}>,
   dependentTo?: {
     value: string,
     trigger: any

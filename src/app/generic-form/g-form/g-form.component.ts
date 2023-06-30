@@ -12,12 +12,15 @@ import {ControlInterface, FormInterface, Validation} from "../form-interface";
 import {AbstractControl, FormBuilder, FormControl, FormControlOptions, FormGroup, Validators} from "@angular/forms";
 import { checkControlError} from "../../shared/functions/form-validation-error";
 import {AlertService} from "../../shared/service/alert.service";
+import {FirestoreService} from "../../shared/service/firestore.service";
+import {FirestorageService} from "../../shared/service/firestorage.service";
+
 
 @Component({
   selector: 'app-g-form',
   templateUrl: './g-form.component.html',
   styleUrls: ['./g-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GFormComponent implements OnInit, OnChanges{
   @Input() formData: FormInterface | null = null
@@ -27,7 +30,7 @@ export class GFormComponent implements OnInit, OnChanges{
 
   form: FormGroup = this.fb.group(this.generateFormGroup())
 
-  constructor(private fb: FormBuilder, private alert: AlertService) {
+  constructor(private fb: FormBuilder, private alert: AlertService, private upload: FirestorageService) {
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -63,7 +66,7 @@ export class GFormComponent implements OnInit, OnChanges{
 
   createControl(_control: ControlInterface){
     //convert and return a single control
-    return {[_control.controlName]: [null, this.generateValidator(_control.validation || {})]}
+    return {[_control.controlName]: [  null, this.generateValidator(_control.validation || {})]}
   }
 
   checkDependency(control: any){
@@ -117,6 +120,24 @@ export class GFormComponent implements OnInit, OnChanges{
       return
     }
     this.submit.emit(this.form.value)
+  }
+
+  maxFileSize: number = 5 * 1024 * 1024; // 5 MB
+  onFileSelected(event: any) {
+    console.log(this.form.value)
+    // const selectedFile = event.target.files[0];
+    // const fileSize = selectedFile.size;
+    // if (fileSize > this.maxFileSize) {
+    //   console.log('File size exceeds the limit. Please select a smaller file.');
+    //   return;
+    // }
+    //
+    // this.upload.uploadFile(selectedFile).subscribe((da) => {
+    //   console.log(da)
+    // })
+
+    // Proceed with file handling
+    // ...
   }
 
   patchValue(){

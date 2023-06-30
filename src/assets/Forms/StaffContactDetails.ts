@@ -1,4 +1,5 @@
 import {FormInterface} from "../../app/generic-form/form-interface";
+import {CountryList, LivingTerms} from "./optionList";
 
 export const StaffContactDetails: FormInterface = {
   controls: [
@@ -10,7 +11,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Select Country',
       order: 1,
       class: 'col-4',
-      options: ['Nepal', 'India', 'China', 'USA', 'Australia', 'UK'],
+      options: CountryList,
       validation: {
         required: 'Country'
       }
@@ -26,7 +27,7 @@ export const StaffContactDetails: FormInterface = {
         required: 'Province/State'
       },
       class: 'col-4',
-      options: ['Nepal', 'India', 'China', 'USA', 'Australia', 'UK'],
+      options: CountryList,
       dependentTo: {
         value: 'country',
         trigger: (value: any) => {
@@ -45,7 +46,7 @@ export const StaffContactDetails: FormInterface = {
         required: 'City'
       },
       class: 'col-4',
-      options: ['Nepal', 'India', 'China', 'USA', 'Australia', 'UK'],
+      options: CountryList,
       dependentTo: {
         value: 'state',
         trigger: (value: any) => {
@@ -60,6 +61,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Address 1',
       order: 4,
       class: 'col-12',
+      filter: 'alphaNumeric',
       validation: {
         required: 'Address 1',
         max: 50
@@ -72,6 +74,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Address 2',
       order: 5,
       class: 'col-12',
+      filter: 'alphaNumeric',
       validation: {
         max: 50
       }
@@ -83,6 +86,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Postal / Zip code',
       order: 6,
       class: 'col-4',
+      filter: 'alphaNumeric',
       validation: {
         required: 'Postal / Zip Code',
         max: 10
@@ -95,6 +99,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'Mobile Number',
       order: 7,
       class: 'col-4',
+      filter: 'onlyNumber',
       validation: {
         required: 'Mobile Number',
         max: 15
@@ -107,7 +112,7 @@ export const StaffContactDetails: FormInterface = {
       label: 'How long have you been living here',
       order: 8,
       class: 'col-4',
-      options: ['Less than 1 year', '1 year', '2 years', '3 years', 'More than 3 years'],
+      options: LivingTerms,
       validation: {
         required: 'Country'
       }

@@ -8,3 +8,14 @@ export interface BasicDetailsInterface{
   gender: string,
   other?: string
 }
+
+export interface ContactDetailsInterface{
+  country: string,
+  province: string,
+  city: string,
+  addressOne: string,
+  addressTwo?: string,
+  zip: string,
+  mobile: number,
+  term: string
+}

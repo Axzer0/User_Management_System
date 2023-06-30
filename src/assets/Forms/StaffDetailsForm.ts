@@ -1,5 +1,6 @@
 import {FormInterface} from "../../app/generic-form/form-interface";
 import {validMatch} from "../../app/shared/functions/customValidators";
+import {CountryList, GenderList} from "./optionList";
 
 export const StaffDetailsForm: FormInterface = {
   validator:  {
@@ -70,7 +71,7 @@ export const StaffDetailsForm: FormInterface = {
       placeholder: 'Select Country of Birth',
       label: 'Select Country of Birth',
       order: 5,
-      options: ['Nepal', 'India', 'China', 'USA', 'Australia', 'UK'],
+      options: CountryList,
       validation: {
         required: 'Country of Birth'
       }
@@ -109,7 +110,7 @@ export const StaffDetailsForm: FormInterface = {
       placeholder: 'Select Gender',
       label: 'Gender',
       order: 8,
-      options: ['Male', 'Female', 'Others'],
+      options: GenderList,
       validation: {
         required: 'Gender'
       }
@@ -127,9 +128,11 @@ export const StaffDetailsForm: FormInterface = {
       dependentTo: {
         value: 'gender',
         trigger: (value: any) => {
-          return value === 'Others'
+          return value === 'others'
         }
       }
     },
   ]
 }
+
+
