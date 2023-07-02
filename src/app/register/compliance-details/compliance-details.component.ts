@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, Output} from '@angular/core';
 import {FormInterface} from "../../generic-form/form-interface";
 import {StaffComplianceDetails} from "../../../assets/Forms/StaffComplianceDetails";
 import {StaffService} from "../../staff/service/staff.service";
@@ -13,7 +13,7 @@ import {LoadingService} from "../../shared/service/loading.service";
   templateUrl: './compliance-details.component.html',
   styleUrls: ['./compliance-details.component.scss']
 })
-export class ComplianceDetailsComponent {
+export class ComplianceDetailsComponent implements OnDestroy{
   form: FormInterface = StaffComplianceDetails
 
   residence$: any;
@@ -199,5 +199,28 @@ export class ComplianceDetailsComponent {
       this.alert.sendAlert('Something went wrong !')
       this.loading.setLoading(false)
     })
+  }
+  ngOnDestroy(): void {
+    if (this.residence$){
+      this.residence$.unsubscribe()
+    }
+    if (this.cv$){
+      this.cv$.unsubscribe()
+    }
+    if (this.certification$){
+      this.certification$.unsubscribe()
+    }
+    if (this.front$){
+      this.front$.unsubscribe()
+    }
+    if (this.back$){
+      this.back$.unsubscribe()
+    }
+    if (this.passport$){
+      this.passport$.unsubscribe()
+    }
+    if (this.address$){
+      this.address$.unsubscribe()
+    }
   }
 }

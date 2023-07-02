@@ -15,6 +15,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 export function httpTranslateLoader(http: HttpClient){
   return new TranslateHttpLoader(http)
@@ -26,24 +27,25 @@ export function httpTranslateLoader(http: HttpClient){
     AuthLayoutComponent,
     BaseLayoutComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    SharedModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader:{
-        provide: TranslateLoader,
-        useFactory: httpTranslateLoader,
-        deps: [HttpClient]
-      }
-    }),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireStorageModule,
-    MatProgressSpinnerModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        SharedModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: httpTranslateLoader,
+                deps: [HttpClient]
+            }
+        }),
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
+        AngularFireStorageModule,
+        MatProgressSpinnerModule,
+        MatToolbarModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

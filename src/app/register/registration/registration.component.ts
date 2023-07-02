@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {StaffService} from "../../staff/service/staff.service";
 import {LoadingService} from "../../shared/service/loading.service";
 import {FirestoreService} from "../../shared/service/firestore.service";
@@ -11,11 +11,13 @@ import {CurrentUserService} from "../../shared/service/current-user.service";
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit{
+export class RegistrationComponent implements OnInit, OnDestroy{
 
   current: number = 0
 
   title = [ '','Basic Details', 'Contact Details', 'Compliance Details']
+
+  updateUser: any
 
   constructor(private staffDBService: StaffService,
               private userDBService: FirestoreService,
@@ -62,12 +64,18 @@ export class RegistrationComponent implements OnInit{
 
   updateVerificationStatus(){
     this.userDBService.updateVerifiedStatus().then(async (res: any) =>{
-      await this.userDBService.fetchCurrentUser(this.currentUser.uid)
+      this.updateUser = await this.userDBService.fetchCurrentUser(this.currentUser.uid)
       this.router.navigate(['/dashboard']).then(
-        () => this.alert.sendAlert('Registration is complete')
+        () => {
+          this.alert.sendAlert('Registration is complete')
+        }
       )
     },err => {
       this.alert.sendAlert('Failed to complete registration')
     })
+  }
+
+  ngOnDestroy(): void {
+    this.updateUser.unsubscribe()
   }
 }

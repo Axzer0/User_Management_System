@@ -1,0 +1,60 @@
+.header{
+  width: 100%;
+  background: #59778f;
+  height: 75px;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.sidebar{
+  width: 300px;
+  background: #59778f;
+}
+
+.child-container{
+  background: #f8f8f8;
+  width: 100%;
+}
+
+.parent-container{
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.profile{
+  background: #214162;
+  height: 120px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  align-items: center;
+  img{
+    width: 75px;
+    height: 75px;
+  }
+  div{
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    letter-spacing: 0.9px;
+    span:last-child{
+      font-size: 10px;
+    }
+  }
+}
+.menu-item{
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  &:hover{
+    background: #214162;
+  }
+  span{
+    margin-left: 1rem ;
+  }
+}

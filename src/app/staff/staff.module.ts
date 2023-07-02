@@ -7,6 +7,7 @@ import { BasicDetailsViewComponent } from './view/basic-details-view/basic-detai
 import {SharedModule} from "../shared/shared.module";
 import { ContactDetailsViewComponent } from './view/contact-details-view/contact-details-view.component';
 import { ComplianceDetailsViewComponent } from './view/compliance-details-view/compliance-details-view.component';
+import { StaffTableComponent } from './staff-table/staff-table.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ComplianceDetailsViewComponent } from './view/compliance-details-view/c
         ViewComponent,
         BasicDetailsViewComponent,
         ContactDetailsViewComponent,
-        ComplianceDetailsViewComponent
+        ComplianceDetailsViewComponent,
+        StaffTableComponent
     ],
     exports: [
         BasicDetailsViewComponent,

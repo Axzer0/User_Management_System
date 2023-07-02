@@ -28,6 +28,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class UserComponent {
   tableData = ELEMENT_DATA;
   tableColumns =['position', 'name', 'weight', 'symbol'];
+  filter = {
+    position: '',
+    name: '',
+    weight: ''
+  }
+
+  sort = {
+    symbol: 'asc',
+    position: 'asc'
+  }
+
+  pageSize = 5
 
   constructor(private cdr: ChangeDetectorRef) {
       this.tableData = [...this.tableData, ...this.tableData]

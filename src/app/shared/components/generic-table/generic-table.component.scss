@@ -1,0 +1,46 @@
+@import "src/global/variables";
+
+.table-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $mont;
+  input{
+    border: none;
+    outline: none;
+    background: #eae8e8;
+    padding: 3px 10px;
+  }
+  input::placeholder{
+    letter-spacing: 0.9px;
+  }
+}
+
+.table-actions{
+  button{
+    margin-right: 10px
+  }
+}
+
+.table-head{
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 1rem;
+  border-bottom: 1px solid silver;
+}
+
+.table-parent-container{
+  background: white;
+  max-height: 65%;
+  overflow: scroll;
+  position: relative;
+}
+
+.paginator{
+  background: white;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid silver;
+}
+

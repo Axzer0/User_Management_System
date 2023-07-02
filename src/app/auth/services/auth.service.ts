@@ -48,7 +48,7 @@ export class AuthService {
   logout(){
     this.fireAuth.signOut().then(() => {
       localStorage.clear()
-      this.router.navigate(['/login']).then()
+      window.location.reload();
     }, err => {
       console.log('err' + err)
     })

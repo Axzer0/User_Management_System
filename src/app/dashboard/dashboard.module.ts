@@ -7,12 +7,14 @@ import { UserComponent } from './user/user.component';
 import {SharedModule} from "../shared/shared.module";
 import {MatCardModule} from "@angular/material/card";
 import {GenericFormModule} from "../generic-form/generic-form.module";
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    UserComponent
+    UserComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

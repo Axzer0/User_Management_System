@@ -12,5 +12,10 @@ export const BaseLayoutRoutes: Routes = [
     path: 'register',
     loadChildren: () => import('../../register/register.module').then(m => m.RegisterModule),
     canActivate: [registerGuard]
+  },
+  {
+    path: 'staff',
+    loadChildren: () => import('../../staff/staff.module').then(m => m.StaffModule),
+    canActivate: [dashboardGuard]
   }
 ];

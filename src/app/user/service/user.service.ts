@@ -10,16 +10,16 @@ import {UserModal} from "../../shared/service/firestore.service";
 export class UserService {
 
   userCollection: AngularFirestoreCollection<any>;
-  user: Observable<any>
+  userList$: Observable<any>
 
   constructor(private afs: AngularFirestore,
               private currentUser: CurrentUserService) {
     this.userCollection = this.afs.collection('user')
-    this.user = this.userCollection.valueChanges()
+    this.userList$ = this.userCollection.valueChanges()
   }
 
   userList(){
-    return this.user
+    return this.userList$
   }
 
   addUser({uid , email}: {uid: string, email: string}): Promise<string | void>{
