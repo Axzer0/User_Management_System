@@ -20,37 +20,70 @@ export const StaffComplianceDetails: FormInterface = {
       type: 'file',
       controlName: 'residence',
       name: 'residence',
-      placeholder: 'Residence',
-      label: 'Residence',
+      placeholder: 'Residence Permit',
+      label: 'Residence Permit',
       order: 3,
+      filter: {
+        size: 3,
+        type: '.pdf, .png, .jpg, .jpeg',
+      }
+    },{
+      type: 'file',
+      controlName: 'address',
+      name: 'address',
+      placeholder: 'Proof of Address',
+      label: 'Proof of Address',
+      order: 4,
       filter: {
         size: 3,
         type: '.pdf, .png, .jpg, .jpeg',
       },
       validation: {
-        required: 'Residence'
+        required: 'Proof of Address'
       }
     },{
       type: 'file',
-      controlName: 'id',
-      name: 'id',
-      placeholder: 'id',
-      label: 'id',
-      order: 4,
+      controlName: 'cv',
+      name: 'cv',
+      placeholder: 'CV',
+      label: 'CV',
+      order: 5,
+      filter: {
+        size: 3,
+        type: '.pdf',
+      },
       validation: {
-        required: 'ID'
+        required: 'CV'
+      }
+    },{
+      type: 'file',
+      controlName: 'certification',
+      name: 'certification',
+      placeholder: 'Highest Qualification',
+      label: 'Highest Qualification',
+      order: 6,
+      filter: {
+        size: 3,
+        type: '.pdf, .png, .jpg, .jpeg',
+      },
+      validation: {
+        required: 'Highest Qualification'
       }
     },
     {
       type: 'file',
-      controlName: 'document',
-      name: 'document',
-      placeholder: 'Choose Document',
-      label: 'Choose Document',
+      controlName: 'passport',
+      name: 'passport',
+      placeholder: 'Passport',
+      label: 'Passport',
       order: 2,
       class: 'col-12',
       validation: {
-        required: 'Document'
+        required: 'Passport'
+      },
+      filter: {
+        size: 3,
+        type: '.pdf, .png, .jpg, .jpeg',
       },
       dependentTo: {
         value: 'identityType',
@@ -69,6 +102,10 @@ export const StaffComplianceDetails: FormInterface = {
       validation: {
         required: 'Front side'
       },
+      filter: {
+        size: 3,
+        type: '.pdf, .png, .jpg, .jpeg',
+      },
       dependentTo: {
         value: 'identityType',
         trigger: (value: any) => {
@@ -85,6 +122,10 @@ export const StaffComplianceDetails: FormInterface = {
       order: 2,
       validation: {
         required: 'Back side'
+      },
+      filter: {
+        size: 3,
+        type: '.pdf, .png, .jpg, .jpeg',
       },
       dependentTo: {
         value: 'identityType',

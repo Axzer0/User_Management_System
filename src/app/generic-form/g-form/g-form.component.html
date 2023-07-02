@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="col-12 row">
   <ng-container *ngFor="let control of formData?.controls ">
-    <ng-container *ngIf="checkDependency(control)">
+    <ng-container *ngIf="displayField(control)">
       <ng-container [ngSwitch]="control.type">
 
 <!--        for input field type -->
@@ -58,8 +58,12 @@
             <mat-card-header>
               <mat-card-title>{{control.label}}</mat-card-title>
             </mat-card-header>
-            <mat-card-content class="mt-3">
-              <input (change)="onFileSelected($event)" accept=".pdf, .png, .jpg, .jpeg" type="file" [formControlName]="control.controlName">
+            <mat-divider></mat-divider>
+            <mat-card-content class="mt-3 file-card-content">
+              <app-view-file [file]="emitData?.[control.controlName]"></app-view-file>
+              <input (change)="onFileSelected($event, control.controlName)"
+                     [accept]="control.filter.type || ''"
+                     type="file" [formControlName]="control.controlName">
               <br>
               <mat-error *ngIf="!!controlError(control.controlName)">
               <ng-container>
@@ -83,6 +87,6 @@
   <mat-divider></mat-divider>
   <div class="form-footer">
     <span>{{form.errors?.['matchError'] ? formData?.validator.message : ''}}</span>
-    <button type="button" (click)="onNext()" mat-flat-button color="primary">{{btnName}}</button>
+    <button type="button" (click)="onEmit()" mat-flat-button color="primary">{{btnName}}</button>
   </div>
 </form>

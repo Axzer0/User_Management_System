@@ -1,0 +1,4 @@
+<div class="mb-2">
+  <img *ngIf="content && file?.type != 'pdf'" [src]="content" width="250px" height="250px" alt="image">
+  <iframe *ngIf="content && file?.type === 'pdf'" [src]="content" width="250px" height="250px"></iframe>
+</div>

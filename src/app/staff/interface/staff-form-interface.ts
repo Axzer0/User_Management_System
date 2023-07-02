@@ -19,3 +19,35 @@ export interface ContactDetailsInterface{
   mobile: number,
   term: string
 }
+
+export interface ComplianceDetailsInterface{
+  identityType: string,
+  residence?: {
+    type: string,
+    file: File | string
+  },
+  front?: {
+    type: string,
+    file: File | string
+  },
+  back?: {
+    type: string,
+    file: File | string
+  },
+  passport?: {
+    type: string,
+    file: File | string
+  },
+  cv: {
+    type: string,
+    file: File | string
+  },
+  certification: {
+    type: string,
+    file: File | string
+  },
+  address: {
+    type: string,
+    file: File | string
+  }
+}

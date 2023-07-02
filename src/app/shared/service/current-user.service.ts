@@ -7,7 +7,7 @@ import {UserModal} from "./firestore.service";
 })
 export class CurrentUserService {
 
-  currentUser$ = new BehaviorSubject<UserModal | null>(null)
+  private currentUser$ = new BehaviorSubject<UserModal | null>(null)
 
   constructor() { }
 

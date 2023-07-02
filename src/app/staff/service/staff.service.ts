@@ -3,7 +3,11 @@ import {AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore} 
 import {Observable, Subscription} from "rxjs";
 import {UserModal} from "../../shared/service/firestore.service";
 import {CurrentUserService} from "../../shared/service/current-user.service";
-import {BasicDetailsInterface, ContactDetailsInterface} from "../interface/staff-form-interface";
+import {
+  BasicDetailsInterface,
+  ComplianceDetailsInterface,
+  ContactDetailsInterface
+} from "../interface/staff-form-interface";
 
 
 @Injectable({
@@ -61,6 +65,20 @@ export class StaffService {
     })
   }
 
+  submitComplianceDetails(_data: ComplianceDetailsInterface): Promise<string | void>{
+    let data: any;
+    if (this.registrationDetails){
+      data = {
+        ...this.registrationDetails, compliance: _data
+      }
+    }
+    return this.staffDetailDoc.update(data).then((res) => {
+      return (res)
+    }, err => {
+      throw Error(err)
+    })
+  }
+
   getCurrentUserRegistrationDetails(){
     let uid = this.currentUser.uid
     return this.afs.collection(this.collectionName, ref => {
@@ -74,4 +92,7 @@ export class StaffService {
       console.log(this.registrationDetails)
     })
   }
+
+
+
 }

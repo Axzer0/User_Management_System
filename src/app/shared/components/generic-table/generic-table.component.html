@@ -1,0 +1,31 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container *ngFor="let col of displayedColumns">
+    <ng-container [matColumnDef]="col">
+      <th mat-header-cell *matHeaderCellDef>
+        <ng-container
+          *ngTemplateOutlet="header;
+           context: {toggleFilter: {show: false}, col: col, sortState: {value: 'asc'}}">
+        </ng-container>
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element?.[col]}} </td>
+    </ng-container>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">No data</td>
+  </tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+<ng-template #header let-toggleFilter='toggleFilter' let-sortState='sortState' let-col='col'>
+  <div (click)="filter()">
+    <span *ngIf="!toggleFilter?.show">{{col}}</span>
+    <input type="text" *ngIf="toggleFilter?.show">
+    <mat-icon (click)="toggleFilter.show = !toggleFilter.show">filter_list</mat-icon>
+    <mat-icon *ngIf="sortState?.value == 'asc'" (click)="sortState.value = 'dsc';this.sort(col, 'dsc')">keyboard_arrow_down</mat-icon>
+    <mat-icon *ngIf="sortState?.value == 'dsc'" (click)="sortState.value = 'asc';this.sort(col, 'asc')">keyboard_arrow_up</mat-icon>
+  </div>
+</ng-template>

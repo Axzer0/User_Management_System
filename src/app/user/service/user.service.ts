@@ -1,29 +1,19 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore} from "@angular/fire/compat/firestore";
-import {BehaviorSubject, Observable} from "rxjs";
-import {CurrentUserService} from "./current-user.service";
-import {update} from "@angular/fire/database";
-import {LoadingService} from "./loading.service";
-
-export interface UserModal{
-  uid: string,
-  username: string,
-  email: string,
-  isVerified: boolean,
-  role: string
-}
+import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+import {Observable} from "rxjs";
+import {CurrentUserService} from "../../shared/service/current-user.service";
+import {UserModal} from "../../shared/service/firestore.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirestoreService {
+export class UserService {
 
   userCollection: AngularFirestoreCollection<any>;
   user: Observable<any>
 
   constructor(private afs: AngularFirestore,
-              private currentUser: CurrentUserService,
-              private loading: LoadingService) {
+              private currentUser: CurrentUserService) {
     this.userCollection = this.afs.collection('user')
     this.user = this.userCollection.valueChanges()
   }
@@ -78,5 +68,4 @@ export class FirestoreService {
   getCollection(){
     //return collection
   }
-
 }

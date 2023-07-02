@@ -18,6 +18,7 @@ export class ViewDialogComponent implements  OnInit{
       switch (this.data.view){
         case 'basic' : this.title = 'Basic Details'; break;
         case 'contact' : this.title = 'Contact Details';break;
+        case 'compliance' : this.title = 'Compliance Details';break;
       }
     }
   }

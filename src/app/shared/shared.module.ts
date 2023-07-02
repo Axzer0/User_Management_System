@@ -16,6 +16,12 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatDialogModule} from '@angular/material/dialog';
 import {InputFilterDirective} from "./directive/inputFilter.directive";
+import { ViewFileComponent } from './components/view-file/view-file.component';
+import { GenericTableComponent } from './components/generic-table/generic-table.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+
 
 const MATERIAL = [
   MatSelectModule,
@@ -27,7 +33,10 @@ const MATERIAL = [
   MatDividerModule,
   MatProgressBarModule,
   MatIconModule,
-  MatDialogModule
+  MatDialogModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 ]
 
 @NgModule({
@@ -35,13 +44,16 @@ const MATERIAL = [
     AuthHeaderComponent,
     AuthFooterComponent,
     InputFilterDirective,
+    ViewFileComponent,
+    GenericTableComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     TranslateModule,
-    MATERIAL
+    MATERIAL,
+
   ],
   exports: [
     AuthHeaderComponent,
@@ -50,7 +62,9 @@ const MATERIAL = [
     FormsModule,
     TranslateModule,
     MATERIAL,
-    InputFilterDirective
+    InputFilterDirective,
+    ViewFileComponent,
+    GenericTableComponent
   ]
 })
 export class SharedModule { }

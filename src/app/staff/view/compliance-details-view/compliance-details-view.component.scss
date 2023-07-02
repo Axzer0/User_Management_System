@@ -1,0 +1,29 @@
+.file-card{
+  height: 100%;
+}
+
+.file-card-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-form-field{
+  width: 100%;
+}
+
+mat-label{
+  border: black;
+  color: black;
+}
+
+input:disabled{
+  color: black;
+  opacity: 1;
+}
+
+.t{
+  overflow-y: scroll ;
+}
+

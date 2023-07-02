@@ -5,6 +5,7 @@
   <ng-container [ngSwitch]="data.view">
     <app-basic-details-view *ngSwitchCase="'basic'" [data]="data.formDetails"></app-basic-details-view>
     <app-contact-details-view *ngSwitchCase="'contact'" [data]="data.formDetails"></app-contact-details-view>
+    <app-compliance-details-view *ngSwitchCase="'compliance'" [data]="data.formDetails"></app-compliance-details-view>
   </ng-container>
 
 </div>
