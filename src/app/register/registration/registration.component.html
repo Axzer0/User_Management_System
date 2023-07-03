@@ -2,7 +2,7 @@
   <div class="title-container" *ngIf="current != 0">
     <span>Complete your registration:</span>
     <span>
-      <span style="color: green">Completed ( {{current - 1 }} / 3 )</span> | <span style="color: cornflowerblue;">Current [ {{current}} / 3 ]</span>
+      <span *ngIf="current != 4" style="color: green">{{'Completed' | translate}} ( {{current - 1 }} / 3 )</span> | <span style="color: cornflowerblue;">{{'Current' | translate}}[ {{current}} / 3 ]</span>
     </span>
   </div>
   <mat-card [ngSwitch]="current">
@@ -30,7 +30,7 @@
 
 <ng-template #verifyingFormStatus>
   <div class="pending-container">
-    Verifying your form status
+    {{'Verifying your form status' | translate}}
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <mat-divider></mat-divider>
@@ -38,7 +38,7 @@
 
 <ng-template #completingFormSubmission>
   <div class="pending-container">
-    Registration is complete. Please wait for verification.
+    {{'Registration is complete. Please wait for verification.' | translate}}
   </div>
   <mat-divider></mat-divider>
 </ng-template>

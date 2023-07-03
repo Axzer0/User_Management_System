@@ -79,9 +79,9 @@ export class UserViewComponent implements OnInit, OnDestroy{
       return
     }
     this.loading.setLoading(true)
-    let _data = {...this.userDetails, username: this.userName}
+    let data = {...this.userDetails, username: this.userName}
     let uid = this.userDetails?.uid || ''
-    this.userDBService.updateUser(uid, _data).then(() => {
+    this.userDBService.updateUser(uid, data).then(() => {
       this.loading.setLoading(false)
       this.editMode = false
       this.userDBService.fetchCurrentUser(uid)
@@ -91,7 +91,17 @@ export class UserViewComponent implements OnInit, OnDestroy{
       this.alert.sendAlert('Failed to update user details.')
     })
   }
+
   changeToAdmin(){
-
-
-  }}
+    let data = {...this.userDetails, role: 'admin'}
+    let uid = this.userDetails?.uid || ''
+    this.userDBService.updateUser(uid, data).then(() => {
+      this.loading.setLoading(false)
+      this.editMode = false
+      this.alert.sendAlert('Role updated')
+    }, err => {
+      this.loading.setLoading(false)
+      this.alert.sendAlert('Failed to update role.')
+    })
+  }
+}

@@ -12,9 +12,9 @@
 <!--footer buttons-->
 <mat-divider></mat-divider>
 <div class="footer">
-  <span><i>*Once submitted you cannot update until all forms are completed</i></span>
+  <span><i>{{"*Once submitted you cannot update until all forms are completed" | translate}}</i></span>
   <div>
-    <button mat-flat-button (click)="keepEditing()"> Keep Editing </button>
-    <button mat-flat-button color="primary" [mat-dialog-close]="true"> Proceed </button>
+    <button mat-flat-button (click)="keepEditing()"> {{"Keep Editing" | translate}} </button>
+    <button mat-flat-button color="primary" [mat-dialog-close]="true"> {{"Proceed" | translate }} </button>
   </div>
 </div>

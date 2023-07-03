@@ -4,9 +4,13 @@
   </div>
   <div>
     <select class="language" [(ngModel)]="language" (ngModelChange)="onChange($event)" name="language">
-      <option value="en">English</option>
-      <option value="de">German</option>
-      <option value="fr">French</option>
+      <option value="en">{{"English" | translate}}</option>
+      <option value="de">{{"German" | translate}}</option>
+      <option value="fr">{{"French" | translate}}</option>
+      <option value="esp">{{"Spanish" | translate}}</option>
+      <option value="ru">{{"Russian" | translate}}</option>
+      <option value="np">{{"Nepali" | translate}}</option>
+      <option value="cn">{{"Chinese" | translate}}</option>
     </select>
   </div>
   <div >{{'Support Link' | translate}}: support@email.com</div>

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../auth/services/auth.service";
 import {FirestoreService} from "../../shared/service/firestore.service";
 import {CurrentUserService} from "../../shared/service/current-user.service";
+import {ChangeLangService} from "../../shared/service/change-lang/change-lang.service";
 
 @Component({
   selector: 'app-base-layout',
@@ -32,11 +33,11 @@ export class BaseLayoutComponent implements OnInit{
       icon: 'contacts'
     },
   ]
-
+  language: string = 'en'
   user: any
   constructor(private authService: AuthService,
               private currentUser: CurrentUserService,
-              private dbService: FirestoreService) {
+              private changeLang: ChangeLangService) {
   }
 
   ngOnInit() {
@@ -49,5 +50,10 @@ export class BaseLayoutComponent implements OnInit{
 
   logout(){
     this.authService.logout()
+  }
+
+  onChange(e: any){
+    console.log(e)
+    this.changeLang.changeLang(e)
   }
 }

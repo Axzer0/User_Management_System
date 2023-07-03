@@ -8,15 +8,24 @@
       </div>
     </div>
     <div class="menu-item" *ngFor="let menu of sideMenu" [routerLink]="menu.path">
-        <ng-container>
-          <mat-icon>{{menu.icon}}</mat-icon>
-          <span>{{menu.label}}</span>
-        </ng-container>
+      <ng-container>
+        <mat-icon>{{menu.icon}}</mat-icon>
+        <span>{{menu.label | translate}}</span>
+      </ng-container>
     </div>
   </div>
   <div class="child-container">
     <header class="header">
-        <button mat-flat-button (click)="logout()"> Logout </button>
+      <select class="language" [(ngModel)]="language" (ngModelChange)="onChange($event)" name="language">
+        <option value="en">{{"English" | translate}}</option>
+        <option value="de">{{"German" | translate}}</option>
+        <option value="fr">{{"French" | translate}}</option>
+        <option value="esp">{{"Spanish" | translate}}</option>
+        <option value="ru">{{"Russian" | translate}}</option>
+        <option value="np">{{"Nepali" | translate}}</option>
+        <option value="cn">{{"Chinese" | translate}}</option>
+      </select>
+      <button mat-flat-button (click)="logout()"> Logout </button>
     </header>
     <router-outlet></router-outlet>
   </div>

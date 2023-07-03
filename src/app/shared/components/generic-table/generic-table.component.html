@@ -4,9 +4,9 @@
     <input matInput [(ngModel)]="searchTerm" (ngModelChange)="filter(data)">
   </mat-form-field>
   <div class="table-actions">
-    <button mat-flat-button color="primary" (click)="search()">Search</button>
-    <button mat-flat-button color="accent" (click)="displayFilterInput = !displayFilterInput">Filter</button>
-    <button mat-flat-button color="warn" (click)="reset()">Reset</button>
+    <button mat-flat-button color="primary" (click)="search()">{{'Search' | translate}}</button>
+    <button mat-flat-button color="accent" (click)="displayFilterInput = !displayFilterInput">{{"Filter" | translate}}</button>
+    <button mat-flat-button color="warn" (click)="reset()">{{"Reset" | translate}}</button>
   </div>
 </div>
 <div class="paginator">
@@ -47,7 +47,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
       <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No data</td>
+        <td class="mat-cell" colspan="4">{{"No data" | translate}}</td>
       </tr>
     </table>
   </div>
@@ -57,7 +57,7 @@
 <ng-template #header let-col='col'>
   <div class="table-header">
     <span *ngIf="(allowedFilter.hasOwnProperty(col) && !displayFilterInput) || !allowedFilter.hasOwnProperty(col) ">
-      {{col | titlecase}}
+      {{col | titlecase | translate}}
     </span>
     <input type="text" *ngIf="allowedFilter.hasOwnProperty(col) && displayFilterInput"
            [(ngModel)]="allowedFilter[col]" [placeholder]="'Filter ' + col" (ngModelChange)="search()" >

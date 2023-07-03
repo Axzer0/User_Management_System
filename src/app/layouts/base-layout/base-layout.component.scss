@@ -1,3 +1,5 @@
+@import "src/global/variables";
+
 .header{
   width: 100%;
   background: #59778f;
@@ -61,4 +63,13 @@
   span{
     margin-left: 1rem ;
   }
+}
+
+.language{
+  outline: none;
+  border: none;
+  color: $subheading-color;
+  margin-right: 1rem;
+  padding: 7px;
+  border-radius: 5px
 }

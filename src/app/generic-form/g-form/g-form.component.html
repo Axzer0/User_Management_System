@@ -6,7 +6,7 @@
 <!--        for input field type -->
         <p *ngSwitchCase="'text'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline" >
-            <mat-label>{{control.label}}</mat-label>
+            <mat-label>{{control.label | translate}}</mat-label>
             <input [attr.maxLength]="control?.validation?.max || null"
                    [attr.minLength]="control?.validation?.min || null"
                    [formControlName]="control.controlName"
@@ -26,7 +26,7 @@
 <!--        for dropdown field type-->
         <p *ngSwitchCase="'dropdown'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline">
-            <mat-label>{{control.label}}</mat-label>
+            <mat-label>{{control.label | translate}}</mat-label>
             <mat-select [formControlName]="control.controlName">
               <mat-option *ngFor="let option of control.options" [value]="option?.value">
                 {{option?.label}}
@@ -39,7 +39,7 @@
 <!--        for date field type-->
         <p *ngSwitchCase="'date'" [class]="control.class || 'col-6'">
           <mat-form-field appearance="outline">
-            <mat-label>{{control.label}}</mat-label>
+            <mat-label>{{control.label | translate}}</mat-label>
             <input [formControlName]="control.controlName" matInput [matDatepickerFilter]="control?.filter ? control.filter : noFilter" [matDatepicker]="picker">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker  disabled="false"></mat-datepicker>
@@ -56,7 +56,7 @@
         <div *ngSwitchCase="'file'" [class]="control.class || 'col-6'" class="mb-3">
           <mat-card class="file-card">
             <mat-card-header>
-              <mat-card-title>{{control.label}}</mat-card-title>
+              <mat-card-title>{{control.label | translate}}</mat-card-title>
             </mat-card-header>
             <mat-divider></mat-divider>
             <mat-card-content class="mt-3 file-card-content">
@@ -87,6 +87,6 @@
   <mat-divider></mat-divider>
   <div class="form-footer">
     <span>{{form.errors?.['matchError'] ? formData?.validator.message : ''}}</span>
-    <button type="button" (click)="onEmit()" mat-flat-button color="primary">{{btnName}}</button>
+    <button type="button" (click)="onEmit()" mat-flat-button color="primary">{{btnName | translate}}</button>
   </div>
 </form>

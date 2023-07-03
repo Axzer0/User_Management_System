@@ -1,6 +1,6 @@
 <section class="view-container">
   <mat-stepper [linear]="false" #stepper>
-    <mat-step label="Basic Details">
+    <mat-step label="{{'Basic Details' | translate}}">
       <ng-container *ngIf="staffDetails?.basic; else noData">
         <mat-card>
           <app-basic-details-view [data]="staffDetails?.basic"></app-basic-details-view>
@@ -9,23 +9,23 @@
             <ng-container *ngIf="!user?.isVerified">
               <button *checkView="'role'" mat-flat-button style="margin-right: 15px" color="warn" (click)="onVerify()">Verify</button>
             </ng-container>
-            <button *checkView="uid" mat-flat-button color="primary" (click)="onEdit('basic')">Edit</button>
+            <button *checkView="uid" mat-flat-button color="primary" (click)="onEdit('basic')">{{"Edit" | translate}}</button>
           </div>
         </mat-card>
       </ng-container>
     </mat-step>
-    <mat-step label="Contact Details">
+    <mat-step label="{{'Contact Details' | translate}}">
       <ng-container *ngIf="staffDetails?.contact; else noData">
         <mat-card>
           <app-contact-details-view [data]="staffDetails?.contact"></app-contact-details-view>
           <mat-divider></mat-divider>
           <div class="mt-3 d-flex justify-content-end">
-            <button *checkView="uid"  mat-flat-button color="primary" (click)="onEdit('contact')">Edit</button>
+            <button *checkView="uid"  mat-flat-button color="primary" (click)="onEdit('contact')">{{"Edit" | translate}}</button>
           </div>
         </mat-card>
       </ng-container>
     </mat-step>
-    <mat-step label="Compliance Details">
+    <mat-step label="{{'Compliance Details' | translate}}">
       <ng-container *ngIf="staffDetails?.compliance; else noData">
         <mat-card>
           <app-compliance-details-view [uid]="user?.uid" [data]="staffDetails?.compliance" (edit)="updateComplianceDetails($event)" ></app-compliance-details-view>
@@ -38,7 +38,7 @@
 <!--if no data-->
 <ng-template #noData>
   <mat-card>
-    No Data
+    {{"No Data" | translate}}
   </mat-card>
 </ng-template>
 

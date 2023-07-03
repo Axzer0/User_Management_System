@@ -2,12 +2,12 @@
   <div class="row col-12">
     <div [class]="'col-12'">
       <mat-form-field appearance="outline" >
-        <mat-label>Identity Type</mat-label>
+        <mat-label>{{"Identity Type" | translate}}</mat-label>
         <input matInput disabled [ngModel]= "data?.identityType">
       </mat-form-field>
     </div>
     <mat-tab-group>
-      <mat-tab *ngFor="let tab of tabArray" [label]="tab.label">
+      <mat-tab *ngFor="let tab of tabArray" [label]="tab.label | translate">
               <ng-container *ngTemplateOutlet="card; context: {data: tab}"></ng-container>
       </mat-tab>
     </mat-tab-group>
@@ -23,12 +23,12 @@
         </div>
         <div class="doc-content col-6">
           <div>
-            <p>Document : {{data.label}}</p>
+            <p>Document : {{data.label | translate}}</p>
             <p>Type : {{data.value?.type}}</p>
           </div>
           <div class="doc-actions">
-            <button mat-flat-button color="primary" (click)="view(data.value.file)">View</button>
-            <button mat-flat-button color="accent" *checkView="uid"  (click)="onEdit(data.key)">Update</button>
+            <button mat-flat-button color="primary" (click)="view(data.value.file)">{{"View" | translate}}</button>
+            <button mat-flat-button color="accent" *checkView="uid"  (click)="onEdit(data.key)">{{"Update" | translate}}</button>
           </div>
         </div>
       </div>

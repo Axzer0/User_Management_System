@@ -1,22 +1,22 @@
 <section class="user-view-container">
   <div class="user-view-header col-6">
-    Details
+    {{'Details' | translate}}
   </div>
   <p class="col-6" [class]="editMode ? '':'edit-off'">
     <mat-form-field appearance="outline" >
-      <mat-label>User Name</mat-label>
+      <mat-label>{{'Username' | translate}}</mat-label>
       <input matInput [disabled]="!editMode" [(ngModel)]= "userName">
     </mat-form-field>
   </p>
   <p class='col-6' [class]="editMode ? '':'edit-off'">
     <mat-form-field appearance="outline" >
-      <mat-label>Email</mat-label>
+      <mat-label>{{'Email' | translate}}</mat-label>
       <input matInput disabled [ngModel]= "userDetails?.email">
     </mat-form-field>
   </p>
   <p class='col-6' [class]="editMode ? '':'edit-off'">
     <mat-form-field appearance="outline" >
-      <mat-label>Verified</mat-label>
+      <mat-label>{{'Verified' | translate}}</mat-label>
       <input matInput disabled [ngModel]= "userDetails?.isVerified">
     </mat-form-field>
   </p>
@@ -28,24 +28,24 @@
   </p>
   <p class='col-6'  [class]="editMode ? '':'edit-off'">
     <mat-form-field appearance="outline" >
-      <mat-label>Role</mat-label>
+      <mat-label>{{'Role' | translate}}</mat-label>
       <input matInput disabled [ngModel]= "userDetails?.role">
     </mat-form-field>
   </p>
   <div class="user-view-footer col-6">
     <ng-container *ngIf="userDetails?.role !== 'admin'">
       <ng-container *ngIf="!editMode">
-        <button mat-flat-button color="warn" *checkView="'role'">
-          Promote to Admin
+        <button mat-flat-button color="warn" *checkView="'role'" (click)="changeToAdmin()">
+          {{'Promote to Admin' | translate}}
         </button>
       </ng-container >
     </ng-container>
     <ng-container *ngIf="!editMode">
       <button mat-flat-button color="primary" *checkView="userDetails?.uid" (click)="onEdit()">
-        Update Username
+        {{'Update Username' | translate}}
       </button>
     </ng-container>
-    <button mat-flat-button color="primary" *ngIf="editMode" (click)="onUpdate()">Update</button>
-    <button mat-flat-button color="warn" *ngIf="editMode" (click)="editMode = false">Cancel</button>
+    <button mat-flat-button color="primary" *ngIf="editMode" (click)="onUpdate()">{{'Update' | translate}}</button>
+    <button mat-flat-button color="warn" *ngIf="editMode" (click)="editMode = false">{{'Cancel' | translate}}</button>
   </div>
 </section>
