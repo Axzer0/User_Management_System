@@ -21,6 +21,7 @@ import { GenericTableComponent } from './components/generic-table/generic-table.
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {CheckViewDirective} from "./directive/checkView.directive";
 
 
 const MATERIAL = [
@@ -46,6 +47,7 @@ const MATERIAL = [
     InputFilterDirective,
     ViewFileComponent,
     GenericTableComponent,
+    CheckViewDirective
   ],
   imports: [
     CommonModule,
@@ -64,7 +66,8 @@ const MATERIAL = [
     MATERIAL,
     InputFilterDirective,
     ViewFileComponent,
-    GenericTableComponent
+    GenericTableComponent,
+    CheckViewDirective
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,43 @@
+mat-form-field{
+  width: 100%;
+}
+
+mat-label{
+  border: black;
+  color: black;
+}
+
+.edit-off{
+  input:disabled{
+    color: black;
+    opacity: 1;
+  }
+}
+
+.user-view-container{
+  margin: 1rem;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-view-header{
+  border-bottom: 1px solid silver;
+  padding-bottom: 5px;
+  margin-bottom: 1rem;
+  font-size: 18px;
+  letter-spacing: 0.9px;
+  text-align: center;
+}
+
+.user-view-footer{
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid silver;
+  padding-top: 10px;
+  button{
+    margin-right: 2px;
+  }
+}

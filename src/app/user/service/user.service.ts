@@ -10,7 +10,9 @@ import {UserModal} from "../../shared/service/firestore.service";
 export class UserService {
 
   userCollection: AngularFirestoreCollection<any>;
-  userList$: Observable<any>
+  private readonly userList$: Observable<any>
+
+  collectionName: string = 'user'
 
   constructor(private afs: AngularFirestore,
               private currentUser: CurrentUserService) {
@@ -65,7 +67,9 @@ export class UserService {
     return this.updateUser(uid, current)
   }
 
-  getCollection(){
-    //return collection
+  getUserDetailById(uid: string): Observable<any>{
+    return this.afs.collection(this.collectionName, ref => {
+      return ref.where('uid', '==', uid)
+    }).valueChanges()
   }
 }

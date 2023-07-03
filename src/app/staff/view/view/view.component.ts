@@ -101,7 +101,7 @@ export class ViewComponent implements OnInit, OnDestroy{
 
 
   editBasicData(){
-    let _value = {...this.staffDetails?.basic}
+    let _value = {...this.staffDetails?.basic} as BasicDetailsInterface
     if (_value?.dob){
       _value.dob = new Date(_value.dob)
     }
@@ -123,7 +123,7 @@ export class ViewComponent implements OnInit, OnDestroy{
   }
 
   editContactData(){
-    let _value = {...this.staffDetails?.contact}
+    let _value = {...this.staffDetails?.contact} as ContactDetailsInterface
     if (_value?.country){
       _value.country = this.mapCountry(_value.country)
     }

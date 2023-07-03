@@ -18,7 +18,7 @@ export class BaseLayoutComponent implements OnInit{
     },
     {
       label: 'User List',
-      path: '/staff',
+      path: '/user',
       icon: 'supervised_user_circle'
     },
     {
@@ -28,20 +28,23 @@ export class BaseLayoutComponent implements OnInit{
     },
     {
       label: 'Profile',
-      path: '/dashboard',
+      path: `/profile/${this.currentUser.uid}`,
       icon: 'contacts'
     },
   ]
 
   user: any
-
   constructor(private authService: AuthService,
               private currentUser: CurrentUserService,
               private dbService: FirestoreService) {
   }
 
   ngOnInit() {
-    this.user = this.currentUser.currentUser.getValue()
+    this.currentUser.currentUser.subscribe(user => {
+      this.user = user
+    }, err => {
+
+    })
   }
 
   logout(){

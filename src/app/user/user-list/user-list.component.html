@@ -1,0 +1,12 @@
+<div class="table-container">
+  <app-generic-table [data]="tableData"
+                     [displayedColumns]="tableColumns"
+                     [allowedSort]="sort"
+                     [pageSize]="pageSize"
+                     [action]="actions"
+                     [allowedFilter]="filter"></app-generic-table>
+</div>
+
+<ng-template #actions let-id='id'>
+  <button mat-button (click)="view(id)">View</button>
+</ng-template>
