@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component} from '@angular/core';
 import {StaffService} from "../service/staff.service";
 import {UserService} from "../../user/service/user.service";
 import {finalize} from "rxjs";
+import {Router} from "@angular/router";
 
 interface StaffTableObjectInterface{
   id: number,
@@ -9,8 +10,8 @@ interface StaffTableObjectInterface{
   name: string,
   email: string,
   gender: string,
-  number: number,
-  registration: string
+  number: string,
+  verification: string
 }
 
 @Component({
@@ -23,12 +24,12 @@ export class StaffTableComponent {
   staffList: any = []
 
   tableData: StaffTableObjectInterface[] = [];
-  tableColumns =['id', 'name', 'email', 'gender', 'number', 'registration'];
+  tableColumns =['id', 'name', 'email', 'gender', 'number', 'verification', 'actions'];
   filter = {
     email: '',
     gender: '',
     number: '',
-    registration: ''
+    verification: ''
   }
 
   sort = {
@@ -41,7 +42,7 @@ export class StaffTableComponent {
   pageSize = 5
 
 
-  constructor(private staffDBService: StaffService,private cdr: ChangeDetectorRef) {
+  constructor(private staffDBService: StaffService,private cdr: ChangeDetectorRef, private router: Router) {
     this.initialDataFetch()
   }
 
@@ -59,28 +60,25 @@ export class StaffTableComponent {
       let basic = staff.basic || null
       let contact = staff.contact || null
       let compliance = staff.compliance || null
-      let registrationStatus = basic && contact && compliance ? 'Registered' : 'Unregistered'
+      let registrationStatus = basic && contact && compliance ? 'Verified' : 'Unverified'
       let name  = `${staff.basic?.firstName} ${staff.basic.middleName ? staff.basic.middleName + ' ' + staff.basic.lastName : staff.basic.lastName}`
       let row: StaffTableObjectInterface = {
         id: i,
         name: name,
         email: basic?.email,
         gender: basic?.gender,
-        number: contact?.mobile,
-        registration: registrationStatus,
+        number: contact?.mobile ? contact?.mobile : 'N/A',
+        verification: registrationStatus,
         uid: staff.uid,
       }
       this.tableData = [...this.tableData, row]
       i++
     }
-    this.repeater()
     this.cdr.detectChanges()
-    console.log(this.tableData)
   }
 
-  repeater(){
-    for (let i = 0; i < 10 ;i++){
-      this.tableData = [...this.tableData, ...this.tableData]
-    }
+  view(id: string){
+    console.log(id)
+    this.router.navigate(['/staff/' + id]).then()
   }
 }

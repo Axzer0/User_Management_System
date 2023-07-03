@@ -2,7 +2,7 @@ export interface BasicDetailsInterface{
   firstName: string,
   middleName?: string,
   lastName: string,
-  dob: Date,
+  dob: Date | string,
   cob: string,
   email: string,
   gender: string,

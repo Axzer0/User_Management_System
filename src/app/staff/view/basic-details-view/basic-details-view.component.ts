@@ -7,7 +7,7 @@ import {BasicDetailsInterface} from "../../interface/staff-form-interface";
   styleUrls: ['./basic-details-view.component.scss']
 })
 export class BasicDetailsViewComponent {
-  @Input() data: BasicDetailsInterface | null = null
+  @Input() data: BasicDetailsInterface | null | undefined = null
 
   constructor() {
   }

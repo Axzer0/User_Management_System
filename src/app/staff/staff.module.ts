@@ -8,25 +8,30 @@ import {SharedModule} from "../shared/shared.module";
 import { ContactDetailsViewComponent } from './view/contact-details-view/contact-details-view.component';
 import { ComplianceDetailsViewComponent } from './view/compliance-details-view/compliance-details-view.component';
 import { StaffTableComponent } from './staff-table/staff-table.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatTabsModule} from '@angular/material/tabs';
+
 
 
 @NgModule({
-    declarations: [
-        ViewComponent,
-        BasicDetailsViewComponent,
-        ContactDetailsViewComponent,
-        ComplianceDetailsViewComponent,
-        StaffTableComponent
-    ],
-    exports: [
-        BasicDetailsViewComponent,
-      ContactDetailsViewComponent,
-      ComplianceDetailsViewComponent
-    ],
-    imports: [
-        CommonModule,
-        StaffRoutingModule,
-      SharedModule
-    ]
+  declarations: [
+    ViewComponent,
+    BasicDetailsViewComponent,
+    ContactDetailsViewComponent,
+    ComplianceDetailsViewComponent,
+    StaffTableComponent
+  ],
+  exports: [
+    BasicDetailsViewComponent,
+    ContactDetailsViewComponent,
+    ComplianceDetailsViewComponent
+  ],
+  imports: [
+    CommonModule,
+    StaffRoutingModule,
+    SharedModule,
+    MatStepperModule,
+    MatTabsModule
+  ]
 })
 export class StaffModule { }

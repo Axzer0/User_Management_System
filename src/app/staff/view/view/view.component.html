@@ -1,1 +1,41 @@
-<p>view works!</p>
+<section class="view-container">
+  <mat-stepper [linear]="false" #stepper>
+    <mat-step label="Basic Details">
+      <ng-container *ngIf="staffDetails?.basic; else noData">
+        <mat-card>
+          <app-basic-details-view [data]="staffDetails?.basic"></app-basic-details-view>
+          <mat-divider></mat-divider>
+          <div class="mt-3 d-flex justify-content-end">
+            <button mat-flat-button color="primary" (click)="onEdit()">Edit</button>
+          </div>
+        </mat-card>
+      </ng-container>
+    </mat-step>
+    <mat-step label="Contact Details">
+      <ng-container *ngIf="staffDetails?.contact; else noData">
+        <mat-card>
+          <app-contact-details-view [data]="staffDetails?.contact"></app-contact-details-view>
+          <mat-divider></mat-divider>
+          <div class="mt-3 d-flex justify-content-end">
+            <button mat-flat-button color="primary" (click)="onEdit()">Edit</button>
+          </div>
+        </mat-card>
+      </ng-container>
+    </mat-step>
+    <mat-step label="Compliance Details">
+      <ng-container *ngIf="staffDetails?.compliance; else noData">
+        <mat-card>
+          <app-compliance-details-view [data]="staffDetails?.compliance"></app-compliance-details-view>
+        </mat-card>
+      </ng-container>
+    </mat-step>
+  </mat-stepper>
+</section>
+
+<!--if no data-->
+<ng-template #noData>
+  <mat-card>
+    No Data
+  </mat-card>
+</ng-template>
+

@@ -15,8 +15,13 @@ export class ViewFileComponent implements OnChanges{
   }
 
   ngOnChanges() {
-      if (this.file && this.file.file instanceof File){
-        this.readFromFile(this.file.file)
+      if (this.file){
+        if (this.file.file instanceof File){
+          this.readFromFile(this.file.file)
+        } else {
+          this.content = this.sanitizer.bypassSecurityTrustResourceUrl(this.file.file)
+          this.cdr.detectChanges()
+        }
       }
   }
 

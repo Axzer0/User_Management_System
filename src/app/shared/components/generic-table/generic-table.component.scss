@@ -2,7 +2,6 @@
 
 .table-header{
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-family: $mont;
   input{
@@ -10,6 +9,9 @@
     outline: none;
     background: #eae8e8;
     padding: 3px 10px;
+  }
+  mat-icon{
+    margin-left: 5px;
   }
   input::placeholder{
     letter-spacing: 0.9px;
@@ -42,5 +44,9 @@
   display: flex;
   justify-content: center;
   border-bottom: 1px solid silver;
+}
+
+.no-wrap{
+  white-space: nowrap
 }
 

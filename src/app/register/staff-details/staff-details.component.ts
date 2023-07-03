@@ -44,6 +44,9 @@ export class StaffDetailsComponent {
       this.formData.gender = this.formData.other
       delete this.formData['other']
     }
+    if (this.formData.dob){
+      this.formData.dob = this.formData.dob.toLocaleString()
+    }
     const dialogRef = this.dialog.open(ViewDialogComponent, {
       data: {
         formDetails: value,

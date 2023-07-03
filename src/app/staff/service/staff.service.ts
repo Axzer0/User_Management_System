@@ -79,7 +79,7 @@ export class StaffService {
     })
   }
 
-  getCurrentUserRegistrationDetails(){
+  getCurrentUserRegistrationDetails(): Observable<any>{
     let uid = this.currentUser.uid
     return this.afs.collection(this.collectionName, ref => {
       return ref.where('uid', '==', uid)
@@ -93,6 +93,11 @@ export class StaffService {
     })
   }
 
+  getStaffDetailById(uid: string): Observable<any>{
+    return this.afs.collection(this.collectionName, ref => {
+      return ref.where('uid', '==', uid)
+    }).valueChanges()
+  }
 
 
 }

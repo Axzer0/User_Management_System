@@ -7,7 +7,7 @@ import {ContactDetailsInterface} from "../../interface/staff-form-interface";
   styleUrls: ['./contact-details-view.component.scss']
 })
 export class ContactDetailsViewComponent implements OnInit{
-  @Input() data: ContactDetailsInterface | null = null
+  @Input() data: ContactDetailsInterface | null | undefined = null
   constructor() {
   }
 

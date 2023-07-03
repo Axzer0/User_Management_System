@@ -6,39 +6,33 @@
         <input matInput disabled [ngModel]= "data?.identityType">
       </mat-form-field>
     </div>
-    <div *ngIf=" data?.passport" class="col-12">
-      <ng-container *ngTemplateOutlet="card; context: {data: data?.passport, title: 'Passport'}"></ng-container>
-    </div>
-    <div *ngIf=" data?.front" class="col-12">
-      <ng-container *ngTemplateOutlet="card; context: {data: data?.front, title: 'Front'}">></ng-container>
-    </div>
-    <div *ngIf=" data?.back" class="col-12">
-      <ng-container *ngTemplateOutlet="card; context: {data: data?.back, title: 'Back'}">></ng-container>
-    </div>
-    <div *ngIf=" data?.residence" class="col-12">
-      <ng-container *ngTemplateOutlet="card; context: {data: data?.residence, title: 'Residence Permit'}">></ng-container>
-    </div>
-    <div *ngIf=" data?.cv" class="col-12">
-      <ng-container *ngTemplateOutlet="card; context: {data: data?.cv, title: 'CV'}">></ng-container>
-    </div>
-    <div *ngIf=" data?.certification" class="col-12">
-      <ng-container *ngTemplateOutlet="card; context: {data: data?.certification, title: 'Highest Qualification'}">></ng-container>
-    </div>
-    <div *ngIf=" data?.address" class="col-12">
-      <ng-container *ngTemplateOutlet="card; context: {data: data?.address, title: 'Proof of Address'}">></ng-container>
-    </div>
+    <mat-tab-group>
+      <mat-tab *ngFor="let tab of tabArray" [label]="tab.label">
+              <ng-container *ngTemplateOutlet="card; context: {data: tab}"></ng-container>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
 </section>
 
-<ng-template #card let-data='data' let-title='title'>
+<ng-template #card let-data='data'>
   <mat-card class="file-card">
-    <mat-card-header>
-      <mat-card-title>{{title}}</mat-card-title>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content class="mt-3 file-card-content">
-      <app-view-file [file]="data"></app-view-file>
+    <mat-card-content class="mt-3">
+      <div class="row col-12">
+        <div class="doc-container col-6">
+          <app-view-file [file]="data.value"></app-view-file>
+        </div>
+        <div class="doc-content col-6">
+          <div>
+            <p>Document : {{data.label}}</p>
+            <p>Type : {{data.value?.type}}</p>
+          </div>
+          <div class="doc-actions">
+            <button mat-flat-button color="primary" (click)="view(data.value.file)">View</button>
+            <button mat-flat-button color="accent">Update</button>
+          </div>
+        </div>
+      </div>
     </mat-card-content>
   </mat-card>
 </ng-template>

@@ -6,12 +6,13 @@ import {filter} from "rxjs";
   templateUrl: './generic-table.component.html',
   styleUrls: ['./generic-table.component.scss']
 })
-export class GenericTableComponent implements OnChanges, AfterViewInit{
+export class GenericTableComponent implements OnChanges{
   @Input() data: any[] = []
   @Input() displayedColumns: string[] = []
   @Input() allowedFilter: any;
   @Input() allowedSort: any;
   @Input() pageSize: number = 10
+  @Input() action: any
 
   dataSource: any[] = []
   displayFilterInput: boolean = false
@@ -143,26 +144,19 @@ export class GenericTableComponent implements OnChanges, AfterViewInit{
   }
 
   onPageSizeChange(size: number){
-    console.log('in pagechange')
     this.paginate = {
       start: 0, end: size, pageSize: size
     }
   }
 
   onNext(){
-    console.log('in next')
     this.paginate.start = this.paginate.start + this.paginate.pageSize
     this.paginate.end = this.paginate.end + this.paginate.pageSize
   }
 
   onPrev(){
-    console.log('in prev')
     this.paginate.start = this.paginate.start - this.paginate.pageSize
     this.paginate.end = this.paginate.end - this.paginate.pageSize
-  }
-
-  ngAfterViewInit(): void {
-    console.log(this.data)
   }
 }
 

@@ -1,11 +1,12 @@
+@import 'src/global/variables';
+
 .file-card{
   height: 100%;
 }
 
 .file-card-content{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -23,7 +24,27 @@ input:disabled{
   opacity: 1;
 }
 
-.t{
-  overflow-y: scroll ;
+.doc-container{
+  border-right: 1px solid silver;
+  display: flex;
+  justify-content: center;
 }
 
+.doc-content{
+  letter-spacing: 0.9px;
+  font: $mont;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.doc-actions{
+  width: 100%;
+  display: flex;
+  padding-top: 5px;
+  //border-top: 1px solid silver;
+  justify-content: flex-end;
+  button{
+    margin-right: 5px;
+  }
+}

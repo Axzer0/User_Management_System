@@ -22,15 +22,25 @@
   <div>
     <table mat-table [dataSource]="dataSource|slice:paginate.start:paginate.end">
       <ng-container *ngFor="let col of displayedColumns">
-        <ng-container [matColumnDef]="col">
+        <ng-container *ngIf="col !== 'actions'" [matColumnDef]="col">
           <th mat-header-cell *matHeaderCellDef>
             <ng-container
               *ngTemplateOutlet="header;
            context: {col: col}">
             </ng-container>
           </th>
-          <td mat-cell *matCellDef="let element"> {{element?.[col]}} </td>
+          <td mat-cell *matCellDef="let element" class="no-wrap"> {{element?.[col]}} </td>
         </ng-container>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          <ng-container
+            *ngTemplateOutlet="header;
+           context: {col: 'Actions'}"></ng-container>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngTemplateOutlet="action; context:{id: row?.uid}" ></ng-container>
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
