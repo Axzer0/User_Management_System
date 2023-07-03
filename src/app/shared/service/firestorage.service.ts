@@ -31,4 +31,9 @@ export class FirestorageService {
       last()
     );
   }
+
+  deleteFile(filePath: string): Observable<any>{
+    const storageRef = this.storage.refFromURL(filePath);
+    return storageRef.delete()
+  }
 }

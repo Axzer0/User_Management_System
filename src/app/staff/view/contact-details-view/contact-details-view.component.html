@@ -24,7 +24,7 @@
         <input matInput disabled [ngModel]= "data?.addressOne">
       </mat-form-field>
     </p>
-    <p [class]="'col-6'" *ngIf="data?.addressTwo">
+    <p [class]="'col-12'" *ngIf="data?.addressTwo">
       <mat-form-field appearance="outline" >
         <mat-label>Address 2</mat-label>
         <input matInput disabled [ngModel]= "data?.addressTwo">
@@ -33,7 +33,7 @@
     <p [class]="'col-4'">
       <mat-form-field appearance="outline" >
         <mat-label>Postal/Zip Code</mat-label>
-        <input matInput disabled [ngModel]= "data?.zip">
+        <input matInput disabled [ngModel]= "data?.postal">
       </mat-form-field>
     </p>
     <p [class]="'col-4'">

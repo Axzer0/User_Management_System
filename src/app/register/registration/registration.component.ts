@@ -51,7 +51,6 @@ export class RegistrationComponent implements OnInit, OnDestroy{
         }
         if (res[0].hasOwnProperty('compliance')){
           this.current = 4
-          this.updateVerificationStatus()
           this.cdr.detectChanges()
         }
       } else {
@@ -59,19 +58,6 @@ export class RegistrationComponent implements OnInit, OnDestroy{
         this.cdr.detectChanges()
       }
     }, err => {
-    })
-  }
-
-  updateVerificationStatus(){
-    this.userDBService.updateVerifiedStatus().then(async (res: any) =>{
-      this.updateUser = await this.userDBService.fetchCurrentUser(this.currentUser.uid)
-      this.router.navigate(['/dashboard']).then(
-        () => {
-          this.alert.sendAlert('Registration is complete')
-        }
-      )
-    },err => {
-      this.alert.sendAlert('Failed to complete registration')
     })
   }
 

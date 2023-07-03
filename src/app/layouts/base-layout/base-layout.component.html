@@ -8,8 +8,10 @@
       </div>
     </div>
     <div class="menu-item" *ngFor="let menu of sideMenu" [routerLink]="menu.path">
-        <mat-icon>{{menu.icon}}</mat-icon>
-        <span>{{menu.label}}</span>
+        <ng-container>
+          <mat-icon>{{menu.icon}}</mat-icon>
+          <span>{{menu.label}}</span>
+        </ng-container>
     </div>
   </div>
   <div class="child-container">

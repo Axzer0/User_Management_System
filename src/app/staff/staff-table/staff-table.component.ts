@@ -10,8 +10,7 @@ interface StaffTableObjectInterface{
   name: string,
   email: string,
   gender: string,
-  number: string,
-  verification: string
+  number: string
 }
 
 @Component({
@@ -26,12 +25,11 @@ export class StaffTableComponent implements OnDestroy{
 
 
   tableData: StaffTableObjectInterface[] = [];
-  tableColumns =['id', 'name', 'email', 'gender', 'number', 'verification', 'actions'];
+  tableColumns =['id', 'name', 'email', 'gender', 'number', 'actions'];
   filter = {
     email: '',
     gender: '',
     number: '',
-    verification: ''
   }
 
   sort = {
@@ -63,7 +61,6 @@ export class StaffTableComponent implements OnDestroy{
       let basic = staff.basic || null
       let contact = staff.contact || null
       let compliance = staff.compliance || null
-      let registrationStatus = basic && contact && compliance ? 'Verified' : 'Unverified'
       let name  = `${staff.basic?.firstName} ${staff.basic.middleName ? staff.basic.middleName + ' ' + staff.basic.lastName : staff.basic.lastName}`
       let row: StaffTableObjectInterface = {
         id: i,
@@ -71,7 +68,6 @@ export class StaffTableComponent implements OnDestroy{
         email: basic?.email,
         gender: basic?.gender,
         number: contact?.mobile ? contact?.mobile : 'N/A',
-        verification: registrationStatus,
         uid: staff.uid,
       }
       this.tableData = [...this.tableData, row]

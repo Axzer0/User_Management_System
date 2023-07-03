@@ -6,7 +6,10 @@
           <app-basic-details-view [data]="staffDetails?.basic"></app-basic-details-view>
           <mat-divider></mat-divider>
           <div class="mt-3 d-flex justify-content-end">
-            <button mat-flat-button color="primary" (click)="onEdit('basic')">Edit</button>
+            <ng-container *ngIf="!user?.isVerified">
+              <button *checkView="'role'" mat-flat-button style="margin-right: 15px" color="warn" (click)="onVerify()">Verify</button>
+            </ng-container>
+            <button *checkView="uid" mat-flat-button color="primary" (click)="onEdit('basic')">Edit</button>
           </div>
         </mat-card>
       </ng-container>
@@ -17,7 +20,7 @@
           <app-contact-details-view [data]="staffDetails?.contact"></app-contact-details-view>
           <mat-divider></mat-divider>
           <div class="mt-3 d-flex justify-content-end">
-            <button mat-flat-button color="primary" (click)="onEdit('contact')">Edit</button>
+            <button *checkView="uid"  mat-flat-button color="primary" (click)="onEdit('contact')">Edit</button>
           </div>
         </mat-card>
       </ng-container>
@@ -25,7 +28,7 @@
     <mat-step label="Compliance Details">
       <ng-container *ngIf="staffDetails?.compliance; else noData">
         <mat-card>
-          <app-compliance-details-view [data]="staffDetails?.compliance"></app-compliance-details-view>
+          <app-compliance-details-view [uid]="user?.uid" [data]="staffDetails?.compliance" (edit)="updateComplianceDetails($event)" ></app-compliance-details-view>
         </mat-card>
       </ng-container>
     </mat-step>

@@ -33,11 +33,13 @@
     </mat-form-field>
   </p>
   <div class="user-view-footer col-6">
-    <ng-container *ngIf="!editMode">
-      <button mat-flat-button color="warn" *checkView="'role'">
-        Promote to Admin
-      </button>
-    </ng-container >
+    <ng-container *ngIf="userDetails?.role !== 'admin'">
+      <ng-container *ngIf="!editMode">
+        <button mat-flat-button color="warn" *checkView="'role'">
+          Promote to Admin
+        </button>
+      </ng-container >
+    </ng-container>
     <ng-container *ngIf="!editMode">
       <button mat-flat-button color="primary" *checkView="userDetails?.uid" (click)="onEdit()">
         Update Username

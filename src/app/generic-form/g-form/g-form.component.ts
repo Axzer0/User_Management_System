@@ -91,7 +91,7 @@ export class GFormComponent implements OnInit, OnChanges{
       this.form.addControl(control.controlName,
         new FormControl(null, this.generateValidator(control.validation || {}) as FormControlOptions)
       )
-      if (this.formValue){
+      if (this.formValue && (this.form.get(control.controlName)?.value === null)){
         this.patchDependentValue(control.controlName)
       }
     } else {
@@ -132,13 +132,15 @@ export class GFormComponent implements OnInit, OnChanges{
 
 
   // for file selection
-  maxFileSize: number = 5 * 1024 * 1024; // 5 MB
-  onFileSelected(event: any, control: any) {
+  onFileSelected(event: any, control: any, maxFileSize: any) {
     console.log(this.form.value)
     const selectedFile = event.target.files[0];
     const fileSize = selectedFile.size;
-    if (fileSize > this.maxFileSize) {
-      console.log('File size exceeds the limit. Please select a smaller file.');
+    if (maxFileSize){
+      maxFileSize = maxFileSize  * 1024 * 1024
+    }
+    if (fileSize > maxFileSize) {
+      this.alert.sendAlert('File size exceeds the limit. Please select a smaller file.');
       this.form.patchValue({
         [control]: null
       })

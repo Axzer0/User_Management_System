@@ -15,7 +15,7 @@ export interface ContactDetailsInterface{
   city: string,
   addressOne: string,
   addressTwo?: string,
-  zip: string,
+  postal: string,
   mobile: number,
   term: string
 }

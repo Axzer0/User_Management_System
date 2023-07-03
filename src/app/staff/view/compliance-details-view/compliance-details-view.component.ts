@@ -20,6 +20,8 @@ import {
   PassportEditForm,
   ResidenceEditForm
 } from "../../edit/EditForms";
+import {MapToLabel} from "../../../shared/functions/helper-functions";
+import {CurrentUserService} from "../../../shared/service/current-user.service";
 
 
 @Component({
@@ -29,6 +31,7 @@ import {
 })
 export class ComplianceDetailsViewComponent implements OnInit, OnChanges{
   @Input() data: ComplianceDetailsInterface | any | undefined = null
+  @Input() uid: any = ''
   @Output() edit: EventEmitter<any>  = new EventEmitter<any>()
   tabArray: any[] = []
 
@@ -37,6 +40,9 @@ export class ComplianceDetailsViewComponent implements OnInit, OnChanges{
 
   ngOnChanges(changes: SimpleChanges){
     this.generateTabs()
+    if (this.data?.identityType){
+      this.data.identityType = MapToLabel(this.data.identityType, IdentityTypeList)
+    }
   }
 
   ngOnInit() {
@@ -99,6 +105,7 @@ export class ComplianceDetailsViewComponent implements OnInit, OnChanges{
     dialogRef.afterClosed().subscribe(result => {
       if (result){
         console.log(result)
+        this.edit.emit(result)
       }
     });
   }
@@ -109,37 +116,44 @@ export class ComplianceDetailsViewComponent implements OnInit, OnChanges{
       case 'passport': return {
         form: PassportEditForm,
         title: `Update ${this.getIdentityType()}`,
-        value: null
+        value: null,
+        editFor: key
       };
       case 'residence': return {
         form: ResidenceEditForm,
         title: `Update Residence`,
-        value: null
+        value: null,
+        editFor: key
       };
       case 'cv': return {
         form: CVEditForm,
         title: `Update CV`,
-        value: null
+        value: null,
+        editFor: key
       };
       case 'certification': return {
         form: CertificationEditForm,
         title: `Update Qualification`,
-        value: null
+        value: null,
+        editFor: key
       };
       case 'address': return {
         form: AddressEditForm,
         title: `Update proof of Address`,
-        value: null
+        value: null,
+        editFor: key
       };
       case 'front': return {
         form: FrontEditForm,
         title: `Update ${this.getIdentityType()} front`,
-        value: null
+        value: null,
+        editFor: key
       };
       case 'back': return {
         form: BackEditForm,
         title: `Update ${this.getIdentityType()} back`,
-        value: null
+        value: null,
+        editFor: key
       };
       default: return null
     }

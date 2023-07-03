@@ -8,6 +8,7 @@ import {
   ComplianceDetailsInterface,
   ContactDetailsInterface
 } from "../interface/staff-form-interface";
+import {StaffRegistrationDetails} from "../view/view/view.component";
 
 
 @Injectable({
@@ -32,10 +33,6 @@ export class StaffService {
 
   getStaff(){
     return this.staffList$
-  }
-
-  getBasicDetails(){
-
   }
 
   submitBasicDetails(_data: BasicDetailsInterface): Promise<string | void>{
@@ -99,5 +96,7 @@ export class StaffService {
     }).valueChanges()
   }
 
-
+  updateStaffRegistrationDetailsById(uid: string, data: StaffRegistrationDetails): Promise<void>{
+    return this.staffCollection.doc(uid).update(data)
+  }
 }

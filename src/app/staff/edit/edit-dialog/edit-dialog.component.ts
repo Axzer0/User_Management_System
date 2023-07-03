@@ -14,8 +14,9 @@ export class EditDialogComponent {
   }
 
   emit(value: any){
-    this.data.value = value
-    this.close()
+    this.dialogRef.close({
+      data: value, from: this.data?.editFor || ''
+    });
   }
 
   close(): void {

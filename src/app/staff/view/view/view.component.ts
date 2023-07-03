@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {StaffService} from "../../service/staff.service";
-import {UserService} from "../../../user/service/user.service";
 import {LoadingService} from "../../../shared/service/loading.service";
 import {AlertService} from "../../../shared/service/alert.service";
 import {
@@ -9,19 +8,20 @@ import {
   ComplianceDetailsInterface,
   ContactDetailsInterface
 } from "../../interface/staff-form-interface";
-import {Observable, Subscription} from "rxjs";
+import {finalize, Subscription} from "rxjs";
 import {EditDialogComponent} from "../../edit/edit-dialog/edit-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {BackEditForm} from "../../edit/EditForms";
 import {StaffDetailsForm} from "../../../../assets/Forms/StaffDetailsForm";
 import {StaffContactDetails} from "../../../../assets/Forms/StaffContactDetails";
-import {CountryList, GenderList, LivingTerms} from "../../../../assets/Forms/optionList";
+import {MapCountry, MapGender, MapTerm} from "../../../shared/functions/helper-functions";
+import {FirestorageService} from "../../../shared/service/firestorage.service";
+import {UserService} from "../../../user/service/user.service";
 
-interface StaffRegistrationDetails{
+export interface StaffRegistrationDetails{
   uid: string,
-  basic:BasicDetailsInterface,
+  basic: BasicDetailsInterface,
   contact?: ContactDetailsInterface,
-  compliance?: ComplianceDetailsInterface
+  compliance?: ComplianceDetailsInterface | any
 }
 
 @Component({
@@ -35,12 +35,14 @@ export class ViewComponent implements OnInit, OnDestroy{
   staffDetails: StaffRegistrationDetails | null = null;
   paramsSubscription: Subscription = new Subscription();
   staffSubscription:  Subscription = new Subscription();
+  user: any;
 
 
   constructor(private router: Router,
               public dialog: MatDialog,
               private staffDBService: StaffService,
               private userDBService: UserService,
+              private storageService: FirestorageService,
               private loading: LoadingService,
               private alert: AlertService,
               private cdr: ChangeDetectorRef,
@@ -54,19 +56,27 @@ export class ViewComponent implements OnInit, OnDestroy{
       this.uid = params['id']
       if (this.uid){
         this.getStaffDetail()
+
       }
+    })
+  }
+
+  getUserDetails(){
+    this.userDBService.getUserDetailById(this.uid).subscribe(res => {
+      this.loading.setLoading(false)
+      this.user = {...res[0]}
     })
   }
 
   getStaffDetail(){
     this.staffSubscription = this.staffDBService.getStaffDetailById(this.uid).subscribe((res) => {
-      this.loading.setLoading(false);
       if (res.length < 1){
         this.alert.sendAlert("No staff found with given id");
         return
       }
       this.staffDetails = {...res[0]}
       this.cdr.detectChanges()
+      this.getUserDetails()
       console.log(this.staffDetails)
     }, err => {
       this.loading.setLoading(false);
@@ -74,21 +84,18 @@ export class ViewComponent implements OnInit, OnDestroy{
     })
   }
 
-  onBack(){
-
-  }
-
-  onVerify(){
-
-  }
-
   onEdit(key: string){
     const dialogRef = this.dialog.open(EditDialogComponent, {
-      data: key === 'basic' ? this.editBasicData() : this.editContactData() ,
+      data: key === 'basic' ? this.patchBasicData() : this.patchContactData() ,
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result){
-        console.log(result)
+        if (result.from === 'basic'){
+          this.updateBasicDetails(result.data)
+        }
+        if (result.from === 'contact'){
+          this.updateContactDetails(result.data)
+        }
       }
     });
   }
@@ -100,72 +107,130 @@ export class ViewComponent implements OnInit, OnDestroy{
 
 
 
-  editBasicData(){
+  patchBasicData(){
     let _value = {...this.staffDetails?.basic} as BasicDetailsInterface
     if (_value?.dob){
       _value.dob = new Date(_value.dob)
     }
     if (_value?.gender){
-      if (this.mapGender(_value.gender) === 'others'){
+      if (MapGender(_value.gender) === 'others'){
         _value = Object.assign({}, _value, { other: _value?.gender });
         _value.gender = 'others'
       }
     }
     if (_value?.cob){
-      _value.cob = this.mapCountry(_value.cob)
+      _value.cob = MapCountry(_value.cob)
     }
     let _temp: any = {
       form: StaffDetailsForm,
       title: `Update Basic Details`,
-      value: _value
+      value: _value,
+      editFor: 'basic'
     }
     return _temp
   }
 
-  editContactData(){
+  patchContactData(){
     let _value = {...this.staffDetails?.contact} as ContactDetailsInterface
     if (_value?.country){
-      _value.country = this.mapCountry(_value.country)
+      _value.country = MapCountry(_value.country)
     }
     if (_value?.state){
-      _value.state = this.mapCountry(_value.state)
+      _value.state = MapCountry(_value.state)
     }
     if (_value?.city){
-      _value.city = this.mapCountry(_value.city)
+      _value.city = MapCountry(_value.city)
     }
     if (_value?.term){
-      _value.term = this.mapTerm(_value.term)
+      _value.term = MapTerm(_value.term)
     }
     let _temp: any = {
       form: StaffContactDetails,
       title: `Update Contact Details`,
-      value:  _value
+      value:  _value,
+      editFor: 'contact'
     }
     return _temp
   }
 
-  mapGender(val: string): string{
-    let _temp = GenderList.find(m => m.value == val)
-    if (!_temp){
-      return 'others'
+  updateBasicDetails(data: BasicDetailsInterface){
+    if (data.gender === 'others'){
+      data.gender = data?.other || ''
+      delete data.other
     }
-    return val
+    if (data.dob){
+      data.dob = data.dob.toLocaleString()
+    }
+    let _data = {
+      ...this.staffDetails , basic: data
+    } as StaffRegistrationDetails
+    this.updateStaffDetails(_data)
   }
 
-  mapCountry(name: string): string{
-    let _temp = CountryList.find(m => m.label == name)
-    if (_temp){
-      console.log(_temp)
-      return _temp.value
-    }
-    return name
+  updateContactDetails(data: ContactDetailsInterface){
+    let _data = {
+      ...this.staffDetails , contact: data
+    } as StaffRegistrationDetails
+    this.updateStaffDetails(_data)
   }
 
-  mapTerm(val: string): string{
-    let _temp = LivingTerms.find(m => m.label == val)
-    if (_temp){
-      return _temp.value
+  updateComplianceDetails(fileDetails: any){
+    this.loading.setLoading(true)
+    let {from: key, data: file} = fileDetails
+    if (key){
+      if (this.staffDetails?.compliance?.[key]){
+        this.storageService.deleteFile(this.staffDetails?.compliance?.[key].file)
+          .pipe(
+            finalize(() => {
+              this.replaceFile(key, file)
+            })
+          )
+          .subscribe()
+      }
     }
-    return val
+  }
+
+  replaceFile(key: string, file: any) {
+    this.storageService.uploadFile(file[key].file, key)
+      .pipe(
+        finalize(() => {
+          this.updateStaffDetails(this.staffDetails)
+        })
+      )
+      .subscribe(
+      (url: any) =>{
+        if (url){
+          if (this.staffDetails?.compliance?.[key]) {
+            if ("compliance" in this.staffDetails) {
+              this.staffDetails.compliance[key].file = url
+              this.staffDetails.compliance[key].type = file[key].type
+            }
+          }
+        }
+      }
+    )
+  }
+
+  updateStaffDetails(data: any){
+    this.loading.setLoading(true)
+    this.staffDBService.updateStaffRegistrationDetailsById(this.uid, data).then(res => {
+        this.loading.setLoading(false)
+        this.router.navigate(['/staff']).then(() => this.alert.sendAlert('Staff detail updated'))
+      },err => {
+        this.loading.setLoading(false)
+        this.alert.sendAlert('Failed to update details !')
+      }
+    )
+  }
+
+  onVerify(){
+    let _user = {...this.user, isVerified: true}
+    this.userDBService.updateVerifiedStatus(this.uid, _user).then(() => {
+      this.loading.setLoading(false)
+      this.router.navigate(['/staff']).then(() => {this.alert.sendAlert('User Verified')})
+    }, err => {
+      this.loading.setLoading(false)
+      this.alert.sendAlert('Failed to verify user')
+    })
   }
 }

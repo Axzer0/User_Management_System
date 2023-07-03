@@ -13,6 +13,7 @@ import {FirestoreService} from "../../shared/service/firestore.service";
 export class LoginComponent implements OnInit{
 
   logInStatus: boolean = false;
+  showPassword: boolean  = false;
   form: FormGroup = this.fb.group(
     {
       email: ['', [Validators.required, Validators.email]],

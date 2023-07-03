@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import {Observable} from "rxjs";
+import {finalize, Observable} from "rxjs";
 import {CurrentUserService} from "../../shared/service/current-user.service";
 import {UserModal} from "../../shared/service/firestore.service";
 
@@ -56,15 +56,8 @@ export class UserService {
     return this.afs.collection('user').doc(uid).update(data)
   }
 
-  updateVerifiedStatus(): Promise<void>{
-    let current = this.currentUser.currentUser.getValue()
-    let uid = this.currentUser.uid
-    if (current){
-      current = {
-        ...current, isVerified: true
-      }
-    }
-    return this.updateUser(uid, current)
+  updateVerifiedStatus(uid: string, user: any): Promise<void>{
+    return this.updateUser(uid, user)
   }
 
   getUserDetailById(uid: string): Observable<any>{

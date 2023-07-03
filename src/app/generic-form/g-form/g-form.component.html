@@ -61,7 +61,7 @@
             <mat-divider></mat-divider>
             <mat-card-content class="mt-3 file-card-content">
               <app-view-file [file]="emitData?.[control.controlName]"></app-view-file>
-              <input (change)="onFileSelected($event, control.controlName)"
+              <input (change)="onFileSelected($event, control.controlName, control?.filter?.size)"
                      [accept]="control.filter.type || ''"
                      type="file" [formControlName]="control.controlName">
               <br>

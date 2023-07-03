@@ -91,4 +91,7 @@ export class UserViewComponent implements OnInit, OnDestroy{
       this.alert.sendAlert('Failed to update user details.')
     })
   }
-}
+  changeToAdmin(){
+
+
+  }}
