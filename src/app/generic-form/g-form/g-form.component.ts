@@ -24,8 +24,9 @@ import {FirestorageService} from "../../shared/service/firestorage.service";
 export class GFormComponent implements OnInit, OnChanges{
   @Input() formData: FormInterface | null = null
   @Input() btnName: string  = 'Submit'
-  @Input() formValue: any = null
+  @Input() formValue: any = null;
   @Output() submit = new EventEmitter<any>()
+
 
   form: FormGroup = this.fb.group(this.generateFormGroup())
 
@@ -36,6 +37,9 @@ export class GFormComponent implements OnInit, OnChanges{
 
   ngOnChanges(changes: SimpleChanges) {
     this.form = this.generateFormGroup() as FormGroup
+    if (this.formValue){
+      this.patchValue()
+    }
   }
 
   ngOnInit() {
@@ -87,6 +91,9 @@ export class GFormComponent implements OnInit, OnChanges{
       this.form.addControl(control.controlName,
         new FormControl(null, this.generateValidator(control.validation || {}) as FormControlOptions)
       )
+      if (this.formValue){
+        this.patchDependentValue(control.controlName)
+      }
     } else {
       this.form.removeControl(control.controlName)
     }
@@ -153,10 +160,6 @@ export class GFormComponent implements OnInit, OnChanges{
     // ...
   }
 
-  patchValue(){
-    //for edit
-  }
-
   getExtension(filename: string) {
     let parts = filename.split('.');
     return parts[parts.length - 1];
@@ -192,4 +195,12 @@ export class GFormComponent implements OnInit, OnChanges{
     this.submit.emit(this.generateEmitObject())
   }
 
+  patchValue(){
+    console.log(this.formValue)
+    this.form.patchValue(this.formValue)
+  }
+
+  patchDependentValue(name: string){
+    this.form.get(name)?.patchValue(this.formValue[name])
+  }
 }

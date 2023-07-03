@@ -1,7 +1,7 @@
-import {ChangeDetectorRef, Component} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
 import {StaffService} from "../service/staff.service";
 import {UserService} from "../../user/service/user.service";
-import {finalize} from "rxjs";
+import {finalize, Subscription} from "rxjs";
 import {Router} from "@angular/router";
 
 interface StaffTableObjectInterface{
@@ -19,9 +19,11 @@ interface StaffTableObjectInterface{
   templateUrl: './staff-table.component.html',
   styleUrls: ['./staff-table.component.scss']
 })
-export class StaffTableComponent {
+export class StaffTableComponent implements OnDestroy{
 
   staffList: any = []
+  staffListSubscription: Subscription = new Subscription()
+
 
   tableData: StaffTableObjectInterface[] = [];
   tableColumns =['id', 'name', 'email', 'gender', 'number', 'verification', 'actions'];
@@ -47,7 +49,7 @@ export class StaffTableComponent {
   }
 
   initialDataFetch(){
-    this.staffDBService.staffList$
+    this.staffListSubscription = this.staffDBService.staffList$
       .subscribe(res => {
         this.staffList = res
         this.generateTableData()
@@ -56,6 +58,7 @@ export class StaffTableComponent {
 
   generateTableData(){
     let i = 1
+    this.tableData = []
     for (let staff of this.staffList){
       let basic = staff.basic || null
       let contact = staff.contact || null
@@ -80,5 +83,9 @@ export class StaffTableComponent {
   view(id: string){
     console.log(id)
     this.router.navigate(['/staff/' + id]).then()
+  }
+
+  ngOnDestroy(): void {
+    this.staffListSubscription.unsubscribe()
   }
 }

@@ -1,7 +1,25 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {ComplianceDetailsInterface, ContactDetailsInterface} from "../../interface/staff-form-interface";
-import {Observable} from "rxjs";
 import {IdentityTypeList} from "../../../../assets/Forms/optionList";
+import {EditDialogComponent} from "../../edit/edit-dialog/edit-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {
+  AddressEditForm, BackEditForm,
+  CertificationEditForm,
+  CVEditForm, FrontEditForm,
+  IdentityEditForm,
+  PassportEditForm,
+  ResidenceEditForm
+} from "../../edit/EditForms";
 
 
 @Component({
@@ -11,9 +29,10 @@ import {IdentityTypeList} from "../../../../assets/Forms/optionList";
 })
 export class ComplianceDetailsViewComponent implements OnInit, OnChanges{
   @Input() data: ComplianceDetailsInterface | any | undefined = null
+  @Output() edit: EventEmitter<any>  = new EventEmitter<any>()
   tabArray: any[] = []
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(private cdr: ChangeDetectorRef, public dialog: MatDialog,) {
   }
 
   ngOnChanges(changes: SimpleChanges){
@@ -21,9 +40,11 @@ export class ComplianceDetailsViewComponent implements OnInit, OnChanges{
   }
 
   ngOnInit() {
+
   }
 
   generateTabs(){
+    this.tabArray = []
     if (this.data){
       Object.keys(this.data).forEach(key => {
         if (this.data && this.data[key]){
@@ -69,5 +90,58 @@ export class ComplianceDetailsViewComponent implements OnInit, OnChanges{
 
   view(url: string){
     window.open(url , '_blank');
+  }
+
+  onEdit(key: string){
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: this.getEditForm(key),
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        console.log(result)
+      }
+    });
+  }
+
+  getEditForm(key: string){
+    switch (key){
+      case 'identityType': return null;
+      case 'passport': return {
+        form: PassportEditForm,
+        title: `Update ${this.getIdentityType()}`,
+        value: null
+      };
+      case 'residence': return {
+        form: ResidenceEditForm,
+        title: `Update Residence`,
+        value: null
+      };
+      case 'cv': return {
+        form: CVEditForm,
+        title: `Update CV`,
+        value: null
+      };
+      case 'certification': return {
+        form: CertificationEditForm,
+        title: `Update Qualification`,
+        value: null
+      };
+      case 'address': return {
+        form: AddressEditForm,
+        title: `Update proof of Address`,
+        value: null
+      };
+      case 'front': return {
+        form: FrontEditForm,
+        title: `Update ${this.getIdentityType()} front`,
+        value: null
+      };
+      case 'back': return {
+        form: BackEditForm,
+        title: `Update ${this.getIdentityType()} back`,
+        value: null
+      };
+      default: return null
+    }
   }
 }

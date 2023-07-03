@@ -10,6 +10,8 @@ import { ComplianceDetailsViewComponent } from './view/compliance-details-view/c
 import { StaffTableComponent } from './staff-table/staff-table.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatTabsModule} from '@angular/material/tabs';
+import { EditDialogComponent } from './edit/edit-dialog/edit-dialog.component';
+import {GenericFormModule} from "../generic-form/generic-form.module";
 
 
 
@@ -19,19 +21,21 @@ import {MatTabsModule} from '@angular/material/tabs';
     BasicDetailsViewComponent,
     ContactDetailsViewComponent,
     ComplianceDetailsViewComponent,
-    StaffTableComponent
+    StaffTableComponent,
+    EditDialogComponent
   ],
   exports: [
     BasicDetailsViewComponent,
     ContactDetailsViewComponent,
     ComplianceDetailsViewComponent
   ],
-  imports: [
-    CommonModule,
-    StaffRoutingModule,
-    SharedModule,
-    MatStepperModule,
-    MatTabsModule
-  ]
+    imports: [
+        CommonModule,
+        StaffRoutingModule,
+        SharedModule,
+        MatStepperModule,
+        MatTabsModule,
+        GenericFormModule
+    ]
 })
 export class StaffModule { }

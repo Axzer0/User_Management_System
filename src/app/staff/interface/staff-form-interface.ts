@@ -11,7 +11,7 @@ export interface BasicDetailsInterface{
 
 export interface ContactDetailsInterface{
   country: string,
-  province: string,
+  state: string,
   city: string,
   addressOne: string,
   addressTwo?: string,

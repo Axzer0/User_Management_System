@@ -10,6 +10,12 @@ import {
   ContactDetailsInterface
 } from "../../interface/staff-form-interface";
 import {Observable, Subscription} from "rxjs";
+import {EditDialogComponent} from "../../edit/edit-dialog/edit-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {BackEditForm} from "../../edit/EditForms";
+import {StaffDetailsForm} from "../../../../assets/Forms/StaffDetailsForm";
+import {StaffContactDetails} from "../../../../assets/Forms/StaffContactDetails";
+import {CountryList, GenderList, LivingTerms} from "../../../../assets/Forms/optionList";
 
 interface StaffRegistrationDetails{
   uid: string,
@@ -32,6 +38,7 @@ export class ViewComponent implements OnInit, OnDestroy{
 
 
   constructor(private router: Router,
+              public dialog: MatDialog,
               private staffDBService: StaffService,
               private userDBService: UserService,
               private loading: LoadingService,
@@ -75,12 +82,90 @@ export class ViewComponent implements OnInit, OnDestroy{
 
   }
 
-  onEdit(){
-    console.log('in ')
+  onEdit(key: string){
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: key === 'basic' ? this.editBasicData() : this.editContactData() ,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        console.log(result)
+      }
+    });
   }
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe()
     this.staffSubscription.unsubscribe()
+  }
+
+
+
+  editBasicData(){
+    let _value = {...this.staffDetails?.basic}
+    if (_value?.dob){
+      _value.dob = new Date(_value.dob)
+    }
+    if (_value?.gender){
+      if (this.mapGender(_value.gender) === 'others'){
+        _value = Object.assign({}, _value, { other: _value?.gender });
+        _value.gender = 'others'
+      }
+    }
+    if (_value?.cob){
+      _value.cob = this.mapCountry(_value.cob)
+    }
+    let _temp: any = {
+      form: StaffDetailsForm,
+      title: `Update Basic Details`,
+      value: _value
+    }
+    return _temp
+  }
+
+  editContactData(){
+    let _value = {...this.staffDetails?.contact}
+    if (_value?.country){
+      _value.country = this.mapCountry(_value.country)
+    }
+    if (_value?.state){
+      _value.state = this.mapCountry(_value.state)
+    }
+    if (_value?.city){
+      _value.city = this.mapCountry(_value.city)
+    }
+    if (_value?.term){
+      _value.term = this.mapTerm(_value.term)
+    }
+    let _temp: any = {
+      form: StaffContactDetails,
+      title: `Update Contact Details`,
+      value:  _value
+    }
+    return _temp
+  }
+
+  mapGender(val: string): string{
+    let _temp = GenderList.find(m => m.value == val)
+    if (!_temp){
+      return 'others'
+    }
+    return val
+  }
+
+  mapCountry(name: string): string{
+    let _temp = CountryList.find(m => m.label == name)
+    if (_temp){
+      console.log(_temp)
+      return _temp.value
+    }
+    return name
+  }
+
+  mapTerm(val: string): string{
+    let _temp = LivingTerms.find(m => m.label == val)
+    if (_temp){
+      return _temp.value
+    }
+    return val
   }
 }

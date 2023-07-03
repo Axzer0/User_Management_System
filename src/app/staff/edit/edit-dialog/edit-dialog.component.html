@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="d-flex justify-content-between">
+    <h3>{{data.title}}</h3>
+    <span (click)="close()">X</span>
+  </div>
+  <mat-divider class="mb-3"></mat-divider>
+  <app-g-form [formData]="data?.form" [formValue]="data?.value" (submit)="emit($event)" [btnName]="'Update'"></app-g-form>
+</div>

@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
 import {filter} from "rxjs";
 @Component({
@@ -6,7 +6,7 @@ import {filter} from "rxjs";
   templateUrl: './generic-table.component.html',
   styleUrls: ['./generic-table.component.scss']
 })
-export class GenericTableComponent implements OnChanges{
+export class GenericTableComponent implements OnInit, OnChanges{
   @Input() data: any[] = []
   @Input() displayedColumns: string[] = []
   @Input() allowedFilter: any;
@@ -24,6 +24,9 @@ export class GenericTableComponent implements OnChanges{
   searchTerm: string = ''
 
   constructor(private cdr: ChangeDetectorRef) {
+  }
+
+  ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
