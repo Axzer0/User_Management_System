@@ -1,10 +1,10 @@
 <div class="table-head d-block d-lg-flex justify-content-between align-items-center">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" *ngIf="enableSearch">
     <mat-label>Search by name</mat-label>
-    <input matInput [(ngModel)]="searchTerm" (ngModelChange)="filter(data)">
+    <input matInput [(ngModel)]="searchTerm" (ngModelChange)="search()">
   </mat-form-field>
   <div class="table-actions">
-    <button mat-flat-button color="primary" (click)="search()">{{'Search' | translate}}</button>
+    <button mat-flat-button color="primary" *ngIf="enableSearch" (click)="search()">{{'Search' | translate}}</button>
     <button mat-flat-button color="accent" (click)="displayFilterInput = !displayFilterInput">{{"Filter" | translate}}</button>
     <button mat-flat-button color="warn" (click)="reset()">{{"Reset" | translate}}</button>
   </div>
@@ -60,7 +60,7 @@
       {{col | titlecase | translate}}
     </span>
     <input type="text" *ngIf="allowedFilter.hasOwnProperty(col) && displayFilterInput"
-           [(ngModel)]="allowedFilter[col]" [placeholder]="'Filter ' + col" (ngModelChange)="search()" >
+           [(ngModel)]="allowedFilter[col]" [placeholder]="'Filter ' + col" (ngModelChange)="enableSearch ? search(): filter(this.data)" >
     <mat-icon *ngIf="allowedSort.hasOwnProperty(col) && allowedSort[col] == 'asc'" (click)="allowedSort[col] = 'dsc';this.sort(col, 'dsc')">keyboard_arrow_down</mat-icon>
     <mat-icon *ngIf="allowedSort.hasOwnProperty(col) && allowedSort[col] == 'dsc'" (click)="allowedSort[col] = 'asc';this.sort(col, 'asc')">keyboard_arrow_up</mat-icon>
   </div>

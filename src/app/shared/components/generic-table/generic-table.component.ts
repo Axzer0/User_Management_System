@@ -13,6 +13,7 @@ export class GenericTableComponent implements OnInit, OnChanges{
   @Input() allowedSort: any;
   @Input() pageSize: number = 10
   @Input() action: any
+  @Input() enableSearch: boolean = false
 
   dataSource: any[] = []
   displayFilterInput: boolean = false
@@ -50,6 +51,7 @@ export class GenericTableComponent implements OnInit, OnChanges{
     if (!keys){
       keys = Object.keys(this.allowedFilter)
     }
+    console.log(keys)
     for (let key of keys){
       _temp = [...arr.filter(item => item[key].
         toString().toLowerCase().
