@@ -2,7 +2,7 @@
 
 .header{
   width: 100%;
-  background: #59778f;
+  background: #c5e5ff;
   height: 75px;
   display: flex;
   justify-content: right;
@@ -12,7 +12,7 @@
 
 .sidebar{
   width: 300px;
-  background: #59778f;
+  background: #c5e5ff;
   height: 100%;
   min-height: 100vh;
 }
@@ -31,7 +31,7 @@
 }
 
 .profile{
-  background: #214162;
+  background: #a7b1bc;
   height: 120px;
   display: flex;
   justify-content: space-between;
@@ -58,7 +58,7 @@
   align-items: center;
   cursor: pointer;
   &:hover{
-    background: #214162;
+    background: #a7b1bc;
   }
   span{
     margin-left: 1rem ;
