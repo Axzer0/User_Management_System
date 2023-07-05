@@ -28,14 +28,13 @@ export class UserListComponent {
     username: '',
     email: '',
     role: '',
-    verification: ''
   }
 
   sort = {
     uid: 'asc',
     username: 'asc',
     email: 'asc',
-    verification: 'asc',
+    verified: 'asc',
     role: 'asc'
   }
 
